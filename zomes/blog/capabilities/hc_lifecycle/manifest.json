@@ -1,0 +1,15 @@
+{
+  "capability": {
+    "membrane": "zome"
+  },
+
+  "fn_declarations": [
+    {
+        "name": "genesis",
+        "signature": {
+          "inputs": [],
+          "outputs": []
+        }
+    }
+  ]
+}
