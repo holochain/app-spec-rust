@@ -23,10 +23,10 @@ fn create_post(input: serde_json::Value) -> serde_json::Value {
 }
 
 fn posts_by_agent(input: serde_json::Value) -> serde_json::Value {
-    let links = get_links(input["agent"], "authored_posts");
+    let links = hdk::get_links(input["agent"], "authored_posts");
     json!({"post_hashes": links})
 }
 
 fn get_post(input: serde_json::Value) -> serde_json::Value {
-    json!({"post": get(input["post_hash"]) })
+    json!({"post": hdk::get(input["post_hash"]) })
 }
