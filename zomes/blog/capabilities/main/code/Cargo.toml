@@ -6,3 +6,7 @@ authors = ["Nicolas Luck <nicolas@lucksus.eu>"]
 [dependencies]
 serde_json = "1.0"
 hdk = { git = "https://github.com/holochain/hdk-rust"}
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib"]
