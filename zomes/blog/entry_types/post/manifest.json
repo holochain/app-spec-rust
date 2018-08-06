@@ -7,9 +7,9 @@
       "tag": "comments"
     }
   ],
-  "anchored": [
+  "linked_from": [
     {
-      "base": "App.Key.Hash",
+      "base_type": "HcSysAgentKeyHash",
       "tag": "authored_posts"
     }
   ]

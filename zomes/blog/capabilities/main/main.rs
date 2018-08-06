@@ -10,7 +10,7 @@ fn create_post(input: serde_json::Value) -> serde_json::Value {
         }
     ));
 
-    hdk::anchor("post", "authored_posts", post_hash);
+    hdk::link(hdk::anchors::agent_key_hash(), "authored_posts", post_hash);
 
     let in_repl_to = input["in_reply_to"];
     if in_reply_to != "" {
