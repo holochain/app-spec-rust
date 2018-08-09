@@ -3,7 +3,9 @@ extern crate hdk;
 extern crate serde_json;
 use std::time::SystemTime;
 
-fn create_post(input: serde_json::Value) -> serde_json::Value {
+
+#[no_mangle]
+pub extern "C" fn create_post(input: serde_json::Value) -> serde_json::Value {
     let post_hash = hdk::commit("post", json!(
         {
             "content": input["content"],
@@ -23,11 +25,13 @@ fn create_post(input: serde_json::Value) -> serde_json::Value {
     json!({"hash": post_hash})
 }
 
-fn posts_by_agent(input: serde_json::Value) -> serde_json::Value {
+#[no_mangle]
+pub extern "C" fn posts_by_agent(input: serde_json::Value) -> serde_json::Value {
     let links = hdk::get_links(input["agent"].to_string(), "authored_posts");
     json!({"post_hashes": links})
 }
 
-fn get_post(input: serde_json::Value) -> serde_json::Value {
+#[no_mangle]
+pub extern "C" fn get_post(input: serde_json::Value) -> serde_json::Value {
     json!({"post": hdk::get(input["post_hash"].to_string()) })
 }
