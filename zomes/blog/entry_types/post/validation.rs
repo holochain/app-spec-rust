@@ -7,17 +7,20 @@ struct Post {
     date_created: String
 }
 
-fn validate_post(payload: String) -> bool {
+#[no_mangle]
+pub extern "C" validate_post(payload: String) -> bool {
     match serde_json::from_str(&payload) {
         Ok(Post) => true,
         _ => false
     }
 }
 
-fn validate_post_comments() -> bool {
+#[no_mangle]
+pub extern "C" validate_post_comments() -> bool {
     true
 }
 
-fn validate_post_authored_posts() -> bool {
+#[no_mangle]
+pub extern "C" validate_post_authored_posts() -> bool {
     true
 }
