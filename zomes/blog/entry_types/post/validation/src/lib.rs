@@ -11,10 +11,7 @@ struct Post {
 
 #[no_mangle]
 pub extern "C" fn validate_post(payload: String) -> bool {
-    match serde_json::from_str::<Post>(&payload) {
-        Ok(_) => true,
-        _ => false
-    }
+    serde_json::from_str::<Post>(&payload).is_ok()
 }
 
 #[no_mangle]
