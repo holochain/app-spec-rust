@@ -3,13 +3,11 @@
     "membrane": "zome"
   },
 
-  "fn_declarations": [
+  "functions": [
     {
         "name": "genesis",
-        "signature": {
-          "inputs": [],
-          "outputs": []
-        }
+        "inputs": [],
+        "outputs": []
     }
   ]
 }

@@ -3,40 +3,34 @@
     "membrane": "agent"
   },
 
-  "fn_declarations": [
+  "functions": [
     {
         "name": "create_post",
-        "signature": {
-          "inputs": [
-            {"name": "content", "type": "string"},
-            {"name": "in_reply_to", "type": "hash"}
-          ],
-          "outputs": [
-            {"name": "hash", "type": "string"}
-          ]
-        }
+        "inputs": [
+          {"name": "content", "type": "string"},
+          {"name": "in_reply_to", "type": "hash"}
+        ],
+        "outputs": [
+          {"name": "hash", "type": "string"}
+        ]
     },
     {
       "name": "posts_by_agent",
-      "signature": {
-        "inputs": [
-          {"name": "agent", "type": "hash"}
-        ],
-        "outputs": [
-          {"name": "post_hashes", "type": "array"}
-        ]
-      }
+      "inputs": [
+        {"name": "agent", "type": "hash"}
+      ],
+      "outputs": [
+        {"name": "post_hashes", "type": "array"}
+      ]
     },
     {
       "name": "get_post",
-      "signature": {
-        "inputs": [
-          {"name": "post_hash", "type": "hash"}
-        ],
-        "outputs": [
-          {"name": "post", "type": "object"}
-        ]
-      }
+      "inputs": [
+        {"name": "post_hash", "type": "hash"}
+      ],
+      "outputs": [
+        {"name": "post", "type": "object"}
+      ]
     }
   ]
 }
