@@ -13,6 +13,5 @@ For now, the file dist/bundle.json was created with the following steps:
 * run `hcdev package --strip-meta` in the repo root (with the build of [hcdev](https://github.com/holochain/holochain-cmd) in your path)
 * find bundle.json in root and be happy
 * copy that file to dist and do the following steps to match the current valid DNA specification:
-  * remove hidden files and directories like `.DS_STORE` and `.git`
+  * remove hidden directories like `.git`
   * remove `README.md`
-  * change `zomes` and `capabilities` from an object to an array and move the name of the subitems into the subitems
