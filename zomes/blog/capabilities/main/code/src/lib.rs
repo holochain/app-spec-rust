@@ -32,8 +32,7 @@ pub extern "C" fn create_post(input: serde_json::Value) -> serde_json::Value {
 pub extern "C" fn posts_by_agent(input: serde_json::Value) -> serde_json::Value {
     match hdk::get_links(input["agent"].to_string(), "authored_posts") {
         Ok(links) => json!({"post_hashes": links}),
-        Err(hdk::ErrorCode::HashNotFound) => json!({"post_hashes": [], "error": "hash not found"}),
-        Err(hdk::ErrorCode::FunctionNotImplemented) => json!({"post_hashes": [], "error": "get_links not implemented yet!"}),
+        Err(hdk_error) => hdk_error.to_json(),
     }
 }
 
@@ -41,7 +40,6 @@ pub extern "C" fn posts_by_agent(input: serde_json::Value) -> serde_json::Value 
 pub extern "C" fn get_post(input: serde_json::Value) -> serde_json::Value {
     match hdk::get_entry(input["post_hash"].to_string()) {
         Ok(entry) => json!({"post":  entry}),
-        Err(hdk::ErrorCode::HashNotFound) => json!({"post": {}, "error": "hash not found"}),
-        Err(hdk::ErrorCode::FunctionNotImplemented) => json!({"post": {}, "error": "get_entry not implemented yet!"}),
+        Err(hdk_error) => hdk_error.to_json(),
     }
 }
