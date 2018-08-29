@@ -1,3 +1,17 @@
+// THIS IS NOT FINAL
+// There are several things missing and not worked out yet.
+// Like:
+//   - validate_* functions need to receive a complex struct as argument
+//     that holds the entry to be validated next to the sources,
+//     validation package etc.
+//   - return type of these callbacks should be Result<..>, right?
+//   - how to declare/write validation packages?
+//   - do we need a guarding macro like zome_fns!?
+//
+// This file is WIP and placeholder to be overwritten by future
+// PR after completing the design discussion and reaching consensus
+// about these specifics.
+
 extern crate hdk;
 #[macro_use]
 extern crate serde_derive;
