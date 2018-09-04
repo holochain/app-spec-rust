@@ -1,0 +1,16 @@
+{
+  "name": "post",
+  "sharing": "public",
+  "links_to": [
+    {
+      "target_type": "post",
+      "tag": "comments"
+    }
+  ],
+  "linked_from": [
+    {
+      "base_type": "HcSysAgentKeyHash",
+      "tag": "authored_posts"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "capability": {
+    "membrane": "zome"
+  },
+
+  "functions": [
+    {
+        "name": "genesis",
+        "inputs": [],
+        "outputs": []
+    }
+  ]
+}

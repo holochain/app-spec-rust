@@ -1,0 +1,36 @@
+{
+  "capability": {
+    "membrane": "agent"
+  },
+
+  "functions": [
+    {
+        "name": "create_post",
+        "inputs": [
+          {"name": "content", "type": "string"},
+          {"name": "in_reply_to", "type": "hash"}
+        ],
+        "outputs": [
+          {"name": "hash", "type": "string"}
+        ]
+    },
+    {
+      "name": "posts_by_agent",
+      "inputs": [
+        {"name": "agent", "type": "hash"}
+      ],
+      "outputs": [
+        {"name": "post_hashes", "type": "array"}
+      ]
+    },
+    {
+      "name": "get_post",
+      "inputs": [
+        {"name": "post_hash", "type": "hash"}
+      ],
+      "outputs": [
+        {"name": "post", "type": "object"}
+      ]
+    }
+  ]
+}
