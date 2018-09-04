@@ -2,12 +2,15 @@ FROM holochain/holochain-rust:develop
 
 RUN apt-get update && apt-get install --yes \
   git \
-  qtdeclarative5-dev
+  qtdeclarative5-dev \
+  nodejs \
+  npm
 
 RUN chown ${DOCKER_BUILD_USER} /holochain
 USER ${DOCKER_BUILD_USER}
 
 RUN rustup default nightly
+RUN rustup target add wasm32-unknown-unknown
 WORKDIR /holochain
 RUN git clone https://github.com/holochain/holochain-cmd
 RUN git clone https://github.com/holochain/holosqape
