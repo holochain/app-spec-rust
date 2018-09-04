@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cd /holochain/holochain-cmd
+git pull
+cargo +nightly build --release
+
+cd /holochain/holosqape
+git pull
+git submodule update
+
+cd /holochain/holosqape/holochain-rust
+git pull
+cargo +$TOOLS_NIGHTLY build
+
+cd /holochain/holosqape/bindings
+git pull
+qmake
+make
+
+cd /holochain/holosqape/holoconsole
+git pull
+qmake
+make
