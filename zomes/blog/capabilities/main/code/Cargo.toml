@@ -13,3 +13,6 @@ holochain_wasm_utils = { git = "https://github.com/holochain/holochain-rust" , b
 [lib]
 path = "src/lib.rs"
 crate-type = ["cdylib"]
+
+[profile.release]
+opt-level = 's'
