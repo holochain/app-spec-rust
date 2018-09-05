@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install --yes \
   nodejs \
   npm
 
-RUN chown ${DOCKER_BUILD_USER} /holochain
+RUN chown $UID /holochain
 USER ${DOCKER_BUILD_USER}
 
 RUN rustup default nightly
