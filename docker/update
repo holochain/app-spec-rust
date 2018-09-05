@@ -2,6 +2,7 @@
 
 cd /holochain/holochain-cmd
 git pull
+cargo update
 cargo +nightly build --release
 
 cd /holochain/holosqape
@@ -10,6 +11,7 @@ git submodule update
 
 cd /holochain/holosqape/holochain-rust
 git pull
+cargo update
 cargo +$TOOLS_NIGHTLY build
 
 cd /holochain/holosqape/bindings
