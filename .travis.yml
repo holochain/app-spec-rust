@@ -7,5 +7,5 @@ jobs:
   include:
     - stage: "All"
       name: "Tests"
-      install: docker pull holochain/app-spec-rust:latest
+      install: docker pull holochain/app-spec-rust:develop
       script: . docker/run-update && docker/run-test
