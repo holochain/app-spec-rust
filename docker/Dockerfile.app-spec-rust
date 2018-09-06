@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install --yes \
   npm
 
 RUN chown $UID:$UID /holochain
-USER ${DOCKER_BUILD_USER}
+USER $UID
 
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
