@@ -6,8 +6,7 @@ RUN apt-get update && apt-get install --yes \
   nodejs \
   npm
 
-RUN chown $UID:$UID /holochain
-USER $UID
+USER root
 
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
@@ -32,4 +31,3 @@ RUN qmake
 RUN make
 
 WORKDIR /holochain
-USER root
