@@ -5,6 +5,9 @@
   "uuid": "00000000-0000-0000-0000-000000000000",
   "dna_spec_version": "2.0",
   "properties": {
-      "test": "test"
+      "required_number_of_likes": "5",
+      "seeds": [
+        "Qm3dh38ysdiofajsdl;fjsadoifjasd"
+      ]
   }
 }
