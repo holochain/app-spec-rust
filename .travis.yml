@@ -10,4 +10,4 @@ jobs:
       install: docker pull holochain/app-spec-rust:develop
       script:
         - ls -la /holochain/holosqape/holochain-rust
-        - . docker/run-update && docker/run-test
+        - . docker/run-update && ls -la /holochain/holosqape/holochain-rust && docker/run-test
