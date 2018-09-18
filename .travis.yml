@@ -8,4 +8,6 @@ jobs:
     - stage: "All"
       name: "Tests"
       install: docker pull holochain/app-spec-rust:develop
-      script: . docker/run-update && docker/run-test
+      script:
+        - ls -la /holochain/holosqape/holochain-rust
+        - . docker/run-update && docker/run-test
