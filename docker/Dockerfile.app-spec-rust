@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install --yes \
   npm
 
 USER root
-rm -rf holochain/holochain-cmd
+RUN chmod 777 /holochain/holochain-cmd
 
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
