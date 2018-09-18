@@ -9,6 +9,6 @@ jobs:
       name: "Tests"
       install: docker pull holochain/app-spec-rust:develop
       script:
-        - mkdir /home/holo 
-        - chmod 777 /home/holo
+        - mkdir holo 
+        - chmod 777 holo
         - . docker/run-update && ls -la /holochain/holosqape/holochain-rust && docker/run-test
