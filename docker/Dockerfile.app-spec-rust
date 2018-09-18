@@ -12,13 +12,12 @@ RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
 WORKDIR /holo/holochain
 
+RUN chown -R root:root holochain
 RUN git clone https://github.com/holochain/holochain-cmd
 RUN git clone https://github.com/holochain/holosqape
 
 ENV PATH "/holochain/holochain-cmd/target/release:/holochain/holosqape/holoconsole:$PATH"
 
-RUN whoami
-RUN chmod 777 /holochain/holochain-cmd
 
 WORKDIR /holochain/holochain-cmd
 RUN cargo clean
