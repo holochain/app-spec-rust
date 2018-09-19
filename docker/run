@@ -16,6 +16,6 @@ export HOST_UID
 docker run -h holochain \
   -e HOST_UID \
   -v `pwd`:/holochain/app-spec-rust \
-  -u root \
+  -u root:root \
   -v $HOME/.cargo/registry:/home/holochain/.cargo/registry \
   --rm -it holochain/app-spec-rust:develop ./app-spec-rust/docker/entry "$@" 
