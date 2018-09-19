@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /holochain/holochain-cmd
+cd /holo/holochain/holochain-cmd
 cargo update
 git pull
 chmod +x holochain
