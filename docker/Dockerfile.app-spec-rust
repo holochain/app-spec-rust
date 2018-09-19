@@ -12,7 +12,6 @@ RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
 WORKDIR /holochain
 
-RUN ls -l
 RUN git clone https://github.com/holochain/holochain-cmd
 RUN git clone https://github.com/holochain/holosqape
 
