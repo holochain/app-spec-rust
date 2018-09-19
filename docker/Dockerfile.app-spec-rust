@@ -10,8 +10,8 @@ USER holochain
 
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
-WORKDIR /holochain
+WORKDIR /holo/holochain
 
-ENV PATH "/holochain/holochain-cmd/target/release:/holochain/holosqape/holoconsole:$PATH"
+ENV PATH "/holo/holochain/holochain-cmd/target/release:/holo/holochain/holosqape/holoconsole:$PATH"
 
-WORKDIR /holochain
+WORKDIR /holo/holochain

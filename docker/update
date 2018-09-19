@@ -1,7 +1,8 @@
 #!/bin/bash
+ls
 git clone https://github.com/holochain/holochain-cmd
 git clone https://github.com/holochain/holosqape
-cd /holochain/holochain-cmd
+cd /holo/holochain/holochain-cmd
 cargo update
 git pull
 cargo +nightly build --release
