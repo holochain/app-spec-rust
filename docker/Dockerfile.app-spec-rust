@@ -10,7 +10,7 @@ USER root
 
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
-RUN chown holochain:holochain *
+RUN chown holochain:holochain -R *
 WORKDIR /holochain
 
 RUN git clone https://github.com/holochain/holochain-cmd
