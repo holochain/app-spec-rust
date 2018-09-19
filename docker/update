@@ -1,6 +1,5 @@
 #!/bin/bash
 cd /holochain/holochain-cmd
-cargo update
 git pull
 cargo +nightly build --release
 
