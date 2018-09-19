@@ -21,20 +21,16 @@ ENV PATH "/holochain/holochain-cmd/target/release:/holochain/holosqape/holoconso
 WORKDIR /holochain/holochain-cmd
 RUN cargo +nightly build --release
 WORKDIR /holochain/holosqape
-RUN chown holochain:holochain *
 RUN git submodule init
 RUN git submodule update
 WORKDIR /holochain/holosqape/holochain-rust
-RUN chown holochain:holochain *
 RUN cargo +$TOOLS_NIGHTLY build
 WORKDIR /holochain/holosqape/bindings
-RUN chown holochain:holochain *
 RUN qmake
 RUN make
 WORKDIR /holochain/holosqape/holoconsole
-RUN chown holochain:holochain *
 RUN qmake
 RUN make
 
 WORKDIR /holochain
-RUN chmod 777 *
+RUN holochain:holochain -R /holochain/* 
