@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install --yes \
   nodejs \
   npm
 
-USER root
+USER 1000
 
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
