@@ -1,11 +1,10 @@
 #!/bin/bash
-cd holochain/holochain/holochain-cmd
-ls -la
-
-#cd /holochain/holochain-cmd
-#cargo update
-#git pull
-#cargo +nightly build --release
+git clone https://github.com/holochain/holochain-cmd
+git clone https://github.com/holochain/holosqape
+cd /holochain/holochain-cmd
+cargo update
+git pull
+cargo +nightly build --release
 
 #cd /holochain/holosqape
 #git pull
