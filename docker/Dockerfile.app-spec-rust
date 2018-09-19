@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install --yes \
 
 USER root
 
+RUN cargo update
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
 WORKDIR /holo/holochain
