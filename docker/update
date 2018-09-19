@@ -1,5 +1,4 @@
 #!/bin/bash
-whoami
 cd /holochain/holochain-cmd
 cargo update
 git pull
