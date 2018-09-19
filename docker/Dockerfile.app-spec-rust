@@ -33,4 +33,4 @@ RUN qmake
 RUN make
 
 WORKDIR /holochain
-RUN holochain:holochain -R /holochain/* 
+RUN chown holochain:holochain -R /holochain/* 
