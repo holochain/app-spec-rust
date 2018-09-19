@@ -9,8 +9,8 @@ git pull
 git submodule update
 
 cd /holochain/holosqape/holochain-rust
-git pull
 cargo update
+git pull
 cargo +$TOOLS_NIGHTLY build
 
 cd /holochain/holosqape/bindings
