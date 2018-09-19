@@ -6,12 +6,35 @@ RUN apt-get update && apt-get install --yes \
   nodejs \
   npm
 
-USER holochain
+USER root
 
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
+RUN chown holochain:holochain *
 WORKDIR /holochain
-RUN rm  *
-ENV PATH "/holo/holochain/holochain-cmd/target/release:/holo/holochain/holosqape/holoconsole:$PATH"
+
+RUN git clone https://github.com/holochain/holochain-cmd
+RUN git clone https://github.com/holochain/holosqape
+
+ENV PATH "/holochain/holochain-cmd/target/release:/holochain/holosqape/holoconsole:$PATH"
+
+WORKDIR /holochain/holochain-cmd
+RUN cargo +nightly build --release
+WORKDIR /holochain/holosqape
+RUN chown holochain:holochain *
+RUN git submodule init
+RUN git submodule update
+WORKDIR /holochain/holosqape/holochain-rust
+RUN chown holochain:holochain *
+RUN cargo +$TOOLS_NIGHTLY build
+WORKDIR /holochain/holosqape/bindings
+RUN chown holochain:holochain *
+RUN qmake
+RUN make
+WORKDIR /holochain/holosqape/holoconsole
+RUN chown holochain:holochain *
+RUN qmake
+RUN make
 
 WORKDIR /holochain
+RUN chmod 777 *
