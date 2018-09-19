@@ -1,8 +1,7 @@
 #!/bin/bash
 cd /holochain/holochain-cmd
-rm -rf /holochain/holochain-cmd/Cargo.lock
-git pull
 cargo update
+git pull
 cargo +nightly build --release
 
 cd /holochain/holosqape
