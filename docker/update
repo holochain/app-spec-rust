@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /holochain/holochain-cmd
-chown root:root /holochain/holochain-cmd
+rm -rf /holochain/holochain-cmd/Cargo.lock
 git pull
 cargo update
 cargo +nightly build --release
