@@ -1,25 +1,26 @@
 #!/bin/bash
 ls -la
-cd /holochain/holochain-cmd
-cargo update
-git pull
-cargo +nightly build --release
+whoami
+#cd /holochain/holochain-cmd
+#cargo update
+#git pull
+#cargo +nightly build --release
 
-cd /holochain/holosqape
-git pull
-git submodule update
+#cd /holochain/holosqape
+#git pull
+#git submodule update
 
-cd /holochain/holosqape/holochain-rust
-cargo update
-git pull
-cargo +$TOOLS_NIGHTLY build
+#cd /holochain/holosqape/holochain-rust
+#cargo update
+#git pull
+#cargo +$TOOLS_NIGHTLY build
 
-cd /holochain/holosqape/bindings
-git pull
-qmake
-make
+#cd /holochain/holosqape/bindings
+#git pull
+#qmake
+#make
 
-cd /holochain/holosqape/holoconsole
-git pull
-qmake
-make
+#cd /holochain/holosqape/holoconsole
+#git pull
+#qmake
+#make
