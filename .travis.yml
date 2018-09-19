@@ -9,5 +9,4 @@ jobs:
       name: "Tests"
       install: docker pull holochain/app-spec-rust:develop
       script:
-        - rm -rf /holochain/holochain-cmd/Cargo.lock
         - . docker/run-update && ls -la /holochain/holosqape/holochain-rust && docker/run-test
