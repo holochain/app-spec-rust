@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install --yes \
 
 USER root
 
+RUN rustup install toolchain nightly-x86_64-unknown-linux-gnu
+RUN rustup install toolchain nightly-2018-07-17-x86_64-unknown-linux-gnu
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
 RUN chown holochain:holochain -R *
