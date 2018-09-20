@@ -15,13 +15,10 @@ cargo update
 git pull
 cargo +$TOOLS_NIGHTLY build
 
-cd /holochain/holosqape
+cd /holochain/holosqape/holochain/holosqape
 git pull
-cd /holochain/holosqape/bindings
 qmake
 make
-cd ..
-cd ..
 
 cd /holochain/holosqape/holoconsole
 git pull
