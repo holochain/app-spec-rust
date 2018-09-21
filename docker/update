@@ -26,8 +26,8 @@ qmake
 make
 
 echo "TRAVERSING HOLORUST"
-ls 
 cd /holochain/holosqape/holochain-rust
+ls
 echo "COMPILING HOLOCONSOLE"
 cd /holochain/holosqape/holoconsole
 git pull
