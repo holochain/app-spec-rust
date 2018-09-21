@@ -18,12 +18,16 @@ cargo update
 git pull
 cargo +$TOOLS_NIGHTLY build
 
+
 echo "COMPILING HOLOSQAPE"
 cd /holochain/holosqape/holosqape
 git pull
 qmake
 make
 
+echo "TRAVERSING HOLORUST"
+ls 
+cd /holochain/holosqape/holochain-rust
 echo "COMPILING HOLOCONSOLE"
 cd /holochain/holosqape/holoconsole
 git pull
