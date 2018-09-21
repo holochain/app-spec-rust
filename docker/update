@@ -2,6 +2,7 @@
 rustup toolchain install nightly-x86_64-unknown-linux-gnu
 rustup toolchain install nightly-2018-07-17-x86_64-unknown-linux-gnu
 cargo +nightly-2018-07-17-x86_64-unknown-linux-gnu install fmt
+echo "COMPILING HOLOCHAIN-CMD"
 cd /holochain/holochain-cmd
 cargo update
 git pull
@@ -11,16 +12,19 @@ cd /holochain/holosqape
 git pull
 git submodule update
 
+echo "COMPILING HOLORUST"
 cd /holochain/holosqape/holochain-rust
 cargo update
 git pull
 cargo +$TOOLS_NIGHTLY build
 
+echo "COMPILING HOLOSQAPE"
 cd /holochain/holosqape/holosqape
 git pull
 qmake
 make
 
+echo "COMPILING HOLOCONSOLE"
 cd /holochain/holosqape/holoconsole
 git pull
 qmake
