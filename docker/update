@@ -23,7 +23,7 @@ cargo +$TOOLS_NIGHTLY build
 
 
 echo "COMPILING HOLOSQAPE"
-cd /holochain/holosqape/holosqape
+cd /holochain/holosqape/bindings
 git pull
 qmake
 make
