@@ -1,8 +1,0 @@
-[package]
-name = "code"
-version = "0.1.0"
-authors = ["Nicolas Luck <nicolas@lucksus.eu>"]
-
-[lib]
-path = "src/lib.rs"
-crate-type = ["cdylib"]
