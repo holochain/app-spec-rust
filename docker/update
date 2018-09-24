@@ -32,5 +32,5 @@ echo "COMPILING HOLOCONSOLE"
 cd /holochain/holosqape/holoconsole
 git status
 git pull
-qmake
+qmake CONFIG+=debug
 make
