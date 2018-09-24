@@ -30,6 +30,7 @@ make
 
 echo "COMPILING HOLOCONSOLE"
 cd /holochain/holosqape/holoconsole
+git status
 git pull
 qmake
 make
