@@ -2,7 +2,7 @@
 rustup toolchain install nightly-x86_64-unknown-linux-gnu
 rustup toolchain install nightly-2018-07-17-x86_64-unknown-linux-gnu
 cargo +nightly-2018-07-17-x86_64-unknown-linux-gnu install fmt
-rustup default host nightly-2018-07-17-x86_64-unknown-linux-gnu
+rustup default nightly
 
 echo "COMPILING HOLOCHAIN-CMD"
 cd /holochain/holochain-cmd
@@ -17,8 +17,8 @@ git submodule update
 echo "COMPILING HOLORUST"
 cd /holochain/holosqape/holochain-rust
 cargo update
-git pull
 git checkout master
+git pull
 cargo +$TOOLS_NIGHTLY build
 
 
