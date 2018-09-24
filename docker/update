@@ -25,9 +25,6 @@ git pull
 qmake
 make
 
-echo "TRAVERSING HOLORUST"
-cd /holochain/holosqape/holochain-rust/target
-ls
 echo "COMPILING HOLOCONSOLE"
 cd /holochain/holosqape/holoconsole
 git pull
