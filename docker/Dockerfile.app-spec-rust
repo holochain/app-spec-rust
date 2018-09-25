@@ -12,7 +12,6 @@ RUN rustup toolchain install nightly-x86_64-unknown-linux-gnu
 RUN rustup toolchain install nightly-2018-07-17-x86_64-unknown-linux-gnu
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
-RUN chown holochain:holochain -R *
 WORKDIR /holochain
 
 RUN git clone https://github.com/holochain/holochain-cmd
@@ -35,4 +34,4 @@ RUN qmake
 RUN make
 
 WORKDIR /holochain
-RUN chown holochain:holochain -R /holochain/* 
+RUN chown holochain:holochain -R /holochain/*
