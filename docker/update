@@ -12,6 +12,7 @@ cargo +nightly build --release
 
 cd /holochain/holosqape
 git pull
+git submodule init
 git submodule update
 
 echo "COMPILING HOLORUST"
