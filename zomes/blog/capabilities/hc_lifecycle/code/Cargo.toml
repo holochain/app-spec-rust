@@ -6,3 +6,6 @@ authors = ["Nicolas Luck <nicolas@lucksus.eu>"]
 [lib]
 path = "src/lib.rs"
 crate-type = ["cdylib"]
+
+[profile.release]
+opt-level = 's'
