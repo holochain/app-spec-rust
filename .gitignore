@@ -2,3 +2,4 @@
 *Cargo.lock
 test/node_modules
 dist/app-spec-rust.hcpkg
+test/v8-compile-cache*
