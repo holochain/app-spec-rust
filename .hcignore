@@ -3,3 +3,4 @@ dist
 test
 bundle.json
 docker
+build_and_test.sh
