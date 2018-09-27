@@ -1,12 +1,4 @@
-#[macro_use]
-extern crate hdk;
-extern crate holochain_wasm_utils;
-extern crate serde;
-#[macro_use]
-extern crate serde_derive;
-#[macro_use]
-extern crate serde_json;
-//use std::time::SystemTime;
+use hdk;
 
 zome_functions! {
     create_post: |content: String, in_reply_to: String| {
