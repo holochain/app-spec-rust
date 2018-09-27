@@ -1,28 +1,29 @@
 FROM holochain/holochain-rust:develop
 
 RUN apt-get update && apt-get install --yes \
-  git \
-  qtdeclarative5-dev \
-  nodejs \
-  npm
+  qtdeclarative5-dev
 
-RUN chown ${DOCKER_BUILD_USER} /holochain
-USER ${DOCKER_BUILD_USER}
+USER root
 
+RUN rustup toolchain install nightly-x86_64-unknown-linux-gnu
+RUN rustup toolchain install nightly-2018-07-17-x86_64-unknown-linux-gnu
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown
 WORKDIR /holochain
+
 RUN git clone https://github.com/holochain/holochain-cmd
 RUN git clone https://github.com/holochain/holosqape
 
 ENV PATH "/holochain/holochain-cmd/target/release:/holochain/holosqape/holoconsole:$PATH"
 
 WORKDIR /holochain/holochain-cmd
+RUN cargo update
 RUN cargo +nightly build --release
 WORKDIR /holochain/holosqape
 RUN git submodule init
 RUN git submodule update
 WORKDIR /holochain/holosqape/holochain-rust
+RUN cargo update
 RUN cargo +$TOOLS_NIGHTLY build
 WORKDIR /holochain/holosqape/bindings
 RUN qmake
@@ -32,4 +33,4 @@ RUN qmake
 RUN make
 
 WORKDIR /holochain
-USER root
+RUN chown holochain:holochain -R /holochain/*
