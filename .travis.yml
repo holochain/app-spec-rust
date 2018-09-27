@@ -9,4 +9,4 @@ jobs:
       name: "Tests"
       install: docker pull holochain/app-spec-rust:CI
       script:
-        - . docker/run-update && ls -la /holochain/holosqape/holochain-rust && docker/run-test
+        - . docker/run-update && docker/run-test
