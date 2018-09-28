@@ -1,0 +1,3 @@
+#!/bin/bash
+/holochain/app-spec-rust/docker/update
+/holochain/app-spec-rust/docker/test-ci

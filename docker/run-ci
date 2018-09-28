@@ -1,3 +1,2 @@
 #!/bin/bash
-./docker/run /holochain/app-spec-rust/docker/update
-./docker/run /holochain/app-spec-rust/docker/test-ci
+./docker/run /holochain/app-spec-rust/docker/ci
