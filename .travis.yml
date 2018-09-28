@@ -9,4 +9,4 @@ jobs:
       name: "Tests"
       install: docker pull holochain/app-spec-rust:master
       script:
-        - . docker/run-update && docker/run-test-ci
+        - . docker/run-update && . docker/run-test-ci
