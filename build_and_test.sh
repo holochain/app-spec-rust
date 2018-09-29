@@ -1,4 +1,5 @@
 #! /bin/bash
+mkdir dist
 hcdev package --output dist/app-spec-rust.hcpkg --strip-meta
 cd test
 npm install
