@@ -1,2 +1,0 @@
-#!/bin/bash
-./docker/run /holochain/app-spec-rust/docker/test-ci
