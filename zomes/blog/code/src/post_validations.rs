@@ -66,7 +66,8 @@ validations! {
         /// }
         ///
         |post: Post, ctx: hdk::ValidationData| {
-            post.content.len() < 280
+            (post.content.len() < 280)
+                .ok_or_else(|| Err("Content too long"))
         }
     }
 
@@ -76,13 +77,15 @@ validations! {
             |base: HashString, tag: String, target: HashString, ctx: hdk::ValidationData| {
                 let base = hdk::get_entry(base);
                 base.allow_comments
+                    .ok_or_else(|| Err("Comments not allowed on this post"))
             }
     }
 
     [LINK] validate_post_authored_posts: {
         [ValidationPackage::Entry]
         |base: HashString, tag: String, target: HashString, ctx: hdk::ValidationData| {
-            ctx.sources[0] == base
+            (ctx.sources[0] == base)
+                .ok_or_else(|| Err("Only author can add to 'authored_posts'"))
         }
     }
 }
