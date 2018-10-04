@@ -1,4 +1,5 @@
 use hdk;
+use hdk::globals::G_MEM_STACK;
 
 zome_functions! {
     create_post: |content: String, in_reply_to: String| {
