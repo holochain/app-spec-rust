@@ -15,4 +15,4 @@ cd ..
 echo "DONE."
 echo "RUNNING tests with holoconsole..."
 echo "------------------------------------------------------------------------------------"
-holoconsole test/dist/bundle.js
+holoconsole test/dist/bundle.js | test/node_modules/faucet/bin/cmd.js
