@@ -11,7 +11,7 @@ test('create_post', (t) => {
   const params = JSON.stringify({content, in_reply_to})
   const result = app.call("blog", "main", "create_post", params)
 
-  t.equal(result, JSON.stringify({"error": "commit failed"}))
+  t.equal(result, JSON.stringify({"hash":"Qma2xMsbBGp2baimoKhiZnMCzdcepvPzDXgktVrz3wQH8E"}))
 })
 
 test('posts_by_agent', (t) => {

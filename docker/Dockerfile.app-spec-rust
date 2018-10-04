@@ -24,12 +24,12 @@ RUN git submodule init
 RUN git submodule update
 WORKDIR /holochain/holosqape/holochain-rust
 RUN cargo update
-RUN cargo +$TOOLS_NIGHTLY build
+RUN cargo +$TOOLS_NIGHTLY build --release
 WORKDIR /holochain/holosqape/bindings
 RUN qmake
 RUN make
 WORKDIR /holochain/holosqape/holoconsole
-RUN qmake
+RUN qmake CONFIG+=release
 RUN make
 
 WORKDIR /holochain
