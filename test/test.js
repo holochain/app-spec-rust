@@ -26,13 +26,19 @@ test('posts_by_agent', (t) => {
 })
 
 
-test('posts_by_agent', (t) => {
-  t.plan(1)
+test('get_post', (t) => {
+  t.plan(2)
 
-  const post_hash = "abcd1234"
+  let post_hash = "abcd1234"
   const params = JSON.stringify({post_hash})
 
-  const result = app.call("blog", "main", "get_post", params)
+  const content = "Holo world"
+  const in_reply_to = ""
+  const create_post_result = app.call("blog", "main", "create_post", JSON.stringify({content, in_reply_to}))
 
-  t.equal(result, JSON.stringify({"error": "Function not implemented"}))
+  post_hash = create_post_result.hash
+  const result = app.call("blog", "main", "get_post", JSON.stringify({post_hash}))
+
+  t.equal(result.content, content)
+  t.equal(result.in_reply_to, in_reply_to)
 })
