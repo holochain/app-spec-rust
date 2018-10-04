@@ -30,7 +30,7 @@ validations! {
         ///    ChainFull,       //sending the whole chain, entries and headers
         ///    Custom(String),  //sending something custom
         /// }
-        [ValidationPackage::ChainFull]
+        [ValidationPackage::Entry]
 
         /// Here we have the validation function itself.
         /// Deserializing the JSON happens behind the scenes and we get
@@ -39,23 +39,50 @@ validations! {
         /// like this:
         ///
         /// struct ValidationData {
-        ///    sources : Vec<HashString>
-        ///    sourceChainEntries : Option<Vec<serde_json::Value>>
-        ///    sourceChainHeaders : Option<Vec<Header>>
-        ///    custom : Option<serde_json::Value>
+        ///    chainHeader: ChainHeader,
+        ///    sources : Vec<HashString>,
+        ///    sourceChainEntries : Option<Vec<serde_json::Value>>,
+        ///    sourceChainHeaders : Option<Vec<Header>>,
+        ///    custom : Option<serde_json::Value>,
+        ///    lifecycle : HcEntryLifecycle,
+        ///    action : Either<HcEntryAction, HcLinkAction>,
         /// }
+        ///
+        /// enum HcEntryLifecycle {
+        ///    Chain,
+        ///    Dht,
+        ///    Meta,
+        /// }
+        ///
+        /// enum HcEntryAction {
+        ///    Commit,
+        ///    Modify,
+        ///    Delete,
+        /// }
+        ///
+        /// enum HcLinkAction {
+        ///    Commit,
+        ///    Delete,
+        /// }
+        ///
         |post: Post, ctx: hdk::ValidationData| {
             post.content.len() < 280
         }
     }
 
     /// Validation functions for links need to have a different signature:
-    [LINK] validate_post_comments: |base: HashString, target: HashString, ctx: hdk::ValidationData| {
-        let base = hdk::get_entry(base);
-        base.allow_comments
+    [LINK] validate_post_comments: {
+            [ValidationPackage::Entry]
+            |base: HashString, tag: String, target: HashString, ctx: hdk::ValidationData| {
+                let base = hdk::get_entry(base);
+                base.allow_comments
+            }
     }
 
-    [LINK] validate_post_authored_posts: |base: HashString, target: HashString, ctx: hdk::ValidationData| {
-        ctx.sources[0] == base
+    [LINK] validate_post_authored_posts: {
+        [ValidationPackage::Entry]
+        |base: HashString, tag: String, target: HashString, ctx: hdk::ValidationData| {
+            ctx.sources[0] == base
+        }
     }
 }
