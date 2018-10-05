@@ -1,5 +1,5 @@
 *target
 *Cargo.lock
 test/node_modules
-dist/app-spec-rust.hcpkg
+dist
 test/v8-compile-cache*
