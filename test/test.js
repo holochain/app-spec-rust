@@ -1,6 +1,6 @@
 const test = require('tape');
 
-const app = Container.loadAndInstantiate("dist/app-spec-rust.hcpkg")
+const app = Container.loadAndInstantiate("dist/bundle.json")
 app.start()
 
 test('create_post', (t) => {

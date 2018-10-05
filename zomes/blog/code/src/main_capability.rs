@@ -9,7 +9,7 @@ zome_functions! {
                 "date_created": "now"//SystemTime::now()
                 //SystemTime::now() panics when executed in wasmi
             }
-        ).to_string().as_str()) {
+        )) {
             Ok(post_hash) => {
                 hdk::link_entries(hdk::APP_AGENT_KEY_HASH.to_string(), post_hash.clone(), "authored_posts");
 
