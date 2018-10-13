@@ -1,5 +1,6 @@
 use hdk;
 use hdk::globals::G_MEM_STACK;
+use serde_json;
 
 zome_functions! {
     create_post: |content: String, in_reply_to: String| {
@@ -35,7 +36,15 @@ zome_functions! {
 
     get_post: |post_hash: String| {
         match hdk::get_entry(post_hash) {
-            Ok(entry) => json!({"post":  entry}),
+            Ok(maybe_entry) => {
+                match maybe_entry {
+                    Some(entry) => match serde_json::from_str(&entry) {
+                        Ok(post) => post,
+                        Err(err) => json!({"error deserializing post": err.to_string()}),
+                    },
+                    None => json!({}),
+                }
+            },
             Err(hdk_error) => hdk_error.to_json(),
         }
     }
