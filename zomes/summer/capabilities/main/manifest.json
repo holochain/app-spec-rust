@@ -1,0 +1,18 @@
+{
+  "capability": {
+    "membrane": "public"
+  },
+
+  "functions": [
+    {
+      "name": "sum",
+      "inputs": [
+        {"name": "num1", "type": "u32"},
+        {"name": "num2", "type": "u32"}
+      ],
+      "outputs": [
+        {"name": "sum", "type": "string"}
+      ]
+    }
+  ]
+}

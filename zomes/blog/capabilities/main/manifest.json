@@ -5,6 +5,16 @@
 
   "functions": [
     {
+      "name": "check_sum",
+      "inputs": [
+        {"name": "num1", "type": "u32"},
+        {"name": "num2", "type": "u32"}
+      ],
+      "outputs": [
+        {"name": "sum", "type": "string"}
+      ]
+    },
+    {
         "name": "create_post",
         "inputs": [
           {"name": "content", "type": "string"},
