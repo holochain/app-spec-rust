@@ -3,6 +3,25 @@ use hdk::globals::G_MEM_STACK;
 use serde_json;
 
 zome_functions! {
+    get_an_address: |post_hash: String| {
+        match hdk::get_entry(post_hash) {
+            Err(hdk_error) => hdk_error.to_json(),
+            Ok(maybe_entry) => match maybe_entry {
+                None => json!({}),
+                Some(entry) => match serde_json::from_str(&entry) {
+                    Err(err) => json!({"error deserializing post": err.to_string()}),
+                    Ok(post) => {
+                        // Post is an "entry", so give it to get_entry_address
+                        let maybe_address = hdk::get_entry_address(post);
+                        match maybe_address {
+                            Ok(address) => json!({address: address}),
+                            Err(hdk_error) => hdk_error.to_json(),
+                        }
+                    },
+                },
+            },
+        }
+    }
     create_post: |content: String, in_reply_to: String| {
         match hdk::commit_entry("post", json!(
             {

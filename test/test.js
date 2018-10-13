@@ -3,6 +3,16 @@ const test = require('tape');
 const app = Container.loadAndInstantiate("dist/app-spec-rust.hcpkg")
 app.start()
 
+test('get entry address', (t) => {
+  t.plan(1)
+
+  const result = app.call("blog", "main", "get_entry_address", "")
+
+  // TODO: this address is incorrect, but once we're getting an address out
+  // make it the right one
+  t.equal(result, JSON.stringify({"address":"QmB2xMsbBGp2baimoKhiZnMCzdcepvPzDXgktVrz3wQH8E"}))
+})
+
 test('create_post', (t) => {
   t.plan(1)
 
