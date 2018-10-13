@@ -3,6 +3,23 @@ use hdk::globals::G_MEM_STACK;
 use serde_json;
 
 zome_functions! {
+    check_sum: |num1: u32, num2: u32| {
+        #[derive(Serialize)]
+        struct SumInput {
+            num1: u32,
+            num2: u32,
+        };
+        let call_input = SumInput {
+            num1: num1,
+            num2: num2,
+        };
+        let maybe_result = hdk::call("summer", "main", "sum", serde_json::to_value(call_input).unwrap());
+        match maybe_result {
+            Ok(result) => result,
+            Err(hdk_error) => hdk_error.to_json(),
+        }
+    }
+
     create_post: |content: String, in_reply_to: String| {
         match hdk::commit_entry("post", json!(
             {
