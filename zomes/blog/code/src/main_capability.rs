@@ -12,12 +12,13 @@ zome_functions! {
             }
         )) {
             Ok(post_hash) => {
-                hdk::link_entries(hdk::APP_AGENT_KEY_HASH.to_string(), post_hash.clone(), "authored_posts");
+                hdk::link_entries(hdk::APP_AGENT_KEY_HASH.to_string(), post_hash.clone(), "authored_posts")?;
 
                 let in_reply_to = in_reply_to;
                 if !in_reply_to.is_empty() {
+                    // check the entry exists, before linking
                     if let Ok(_) = hdk::get_entry(in_reply_to.clone()) {
-                        hdk::link_entries(in_reply_to, post_hash.clone(), "comments");
+                        hdk::link_entries(in_reply_to, post_hash.clone(), "comments")?;
                     }
                 }
 
