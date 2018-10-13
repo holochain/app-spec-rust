@@ -26,19 +26,31 @@ test('posts_by_agent', (t) => {
 })
 
 
-test('get_post', (t) => {
-  t.plan(2)
-
-  let post_hash = "abcd1234"
-  const params = JSON.stringify({post_hash})
+test('create/get_post rountrip', (t) => {
+  t.plan(3)
 
   const content = "Holo world"
   const in_reply_to = ""
-  const create_post_result = app.call("blog", "main", "create_post", JSON.stringify({content, in_reply_to}))
+  const params = JSON.stringify({content, in_reply_to})
+  const create_post_result = app.call("blog", "main", "create_post", params)
 
-  post_hash = create_post_result.hash
-  const result = app.call("blog", "main", "get_post", JSON.stringify({post_hash}))
+  t.equal(
+    create_post_result,
+    JSON.stringify({"hash":"Qma2xMsbBGp2baimoKhiZnMCzdcepvPzDXgktVrz3wQH8E"})
+  )
+  post_hash = JSON.parse(create_post_result)["hash"]
+  t.equal(
+    post_hash,
+    "Qma2xMsbBGp2baimoKhiZnMCzdcepvPzDXgktVrz3wQH8E"
+  )
 
-  t.equal(result.content, content)
-  t.equal(result.in_reply_to, in_reply_to)
+  const params_get = JSON.stringify({post_hash})
+  const result = app.call("blog", "main", "get_post", params_get)
+
+  const entry = JSON.parse(result)
+  t.equal(entry.content, content)
+})
+
+
+
 })
