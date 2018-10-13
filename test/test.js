@@ -17,6 +17,9 @@ test('create_post', (t) => {
 test('posts_by_agent', (t) => {
   t.plan(1)
 
+  // ONCE https://github.com/holochain/hdk-rust/pull/31/files
+  // is merged in, this PR will break, then we need to fix it :p
+
   const agent = "Bob"
   const params = JSON.stringify({agent})
 
