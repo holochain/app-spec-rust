@@ -22,7 +22,7 @@ zome_functions! {
 
                 json!({"hash": post_hash})
             },
-            Err(_) => json!({"error": "commit failed"})
+            Err(hdk_error) => hdk_error.to_json(),
         }
     }
 
