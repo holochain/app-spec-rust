@@ -20,34 +20,34 @@ The command line tools also have dependencies, needed only for the testing comma
 Nodejs and NPM, for compiling Javascript tests, Version 8 or higher
 * https://nodejs.org/en/download/
 
-`holoconsole`, the holochain-rust container bindings for Javascript, for executing tests
+`hcshell`, the holochain-rust container bindings for Javascript, for executing tests
 * https://github.com/holochain/holosqape
 
 Make sure that all three of these dependencies are available as binary executables in your terminal before continuing. For this, they must all be available in your PATH environment variable. The instructions to accomplish that can be found separately at the above links. To verify it is all working, run each of the following three commands. 
 
-`hcdev`
+`hc`
 
 If you see the available commands listed, they're successfully installed. 
 
 `node -v`
 
-If you see `vA.B.C` where A, B, and C are numbers you've got `node` installed.
+If you see `vA.B.C` where A, B, and C are numbers, you've got `node` installed.
 
-`holoconsole`
+`hcshell -v`
 
-If you see `Argument 'script' missing.`, you've got `holoconsole` installed.
+If you see `hcshell X.Y`, where X, and Y are numbers, you've got `hcshell` installed.
 
 ### Run the tests
 
 Make sure that you fully completed the installation of dependencies. Then, within the directory of this repo, cloned to your computer, run the following:
 
-`hcdev test`
+`hc test`
 
 You should see the tests all passing successfully.
 
 ### Detailed Description
 
-In order to get from the source directory tree to a Holochain app bundle, and then test that, several steps need to be taken which are all automated by [hcdev test](https://github.com/holochain/holochain-cmd).
+In order to get from the source directory tree to a Holochain app bundle, and then test that, several steps need to be taken which are all automated by [hc test](https://github.com/holochain/holochain-cmd).
 
 This includes compiling any Rust code projects to WASM, and then assembling a DNA file (.hcpkg) with all configuration snippets and the WASM in it.
 
@@ -59,7 +59,7 @@ Unless they have already been installed, it will install node_modules to your `t
 
 Next, it will use `webpack` to compile your tests into a single executable file, in `test/dist/bundle.js`. 
 
-Finally, it uses `holoconsole` to run those tests, giving you the feedback you really want to test code, and develop new functionality.
+Finally, it uses `hcshell` to run those tests, giving you the feedback you really want to test code, and develop new functionality.
 
 ## Contribute
 Holochain is an open source project.  We welcome all sorts of participation and are actively working on increasing surface area to accept it.  Please see our [contributing guidelines](https://github.com/holochain/org/blob/master/CONTRIBUTING.md) for our general practices and protocols on participating in the community.

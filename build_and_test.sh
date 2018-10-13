@@ -1,7 +1,7 @@
 #! /bin/bash
 mkdir dist
 echo "===================================================================================="
-echo "BUILDING genome with 'hcdev package --output dist/app-spec-rust.hcpkg --strip-meta':"
+echo "BUILDING genome with 'hc package --output dist/app-spec-rust.hcpkg --strip-meta':"
 echo "------------------------------------------------------------------------------------"
 hc package --output dist/app-spec-rust.hcpkg --strip-meta
 echo "DONE."
@@ -13,6 +13,6 @@ npm install
 npm run build
 cd ..
 echo "DONE."
-echo "RUNNING tests with holoconsole..."
+echo "RUNNING tests with hcshell..."
 echo "------------------------------------------------------------------------------------"
 hcshell test/dist/bundle.js | test/node_modules/faucet/bin/cmd.js
