@@ -25,8 +25,8 @@ pub extern "C" fn validate_commit(_offset: i32) -> i32{
 }
 
 #[no_mangle]
-pub extern "C" fn validate_post(payload: String) -> bool {
-    serde_json::from_str::<Post>(&payload).is_ok()
+pub extern "C" fn validate_post(_offset: i32) -> i32 {
+    0
 }
 
 #[no_mangle]
