@@ -13,11 +13,9 @@ struct Post {
 /// We need a macro that wraps those validation functions similar to
 /// zome_functions!, but with different parameters.
 validations! {
-
     /// We also need to distinguish between the validation of an entry
     /// (here) and validation of links (below)
     [ENTRY] validate_post {
-
         /// This is an enum that needs to be added to the HDK and that tells
         /// Holochain what validation package the source needs to send
         /// to validating DHT nodes.
