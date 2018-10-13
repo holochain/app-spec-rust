@@ -3,7 +3,7 @@ mkdir dist
 echo "===================================================================================="
 echo "BUILDING genome with 'hcdev package --output dist/app-spec-rust.hcpkg --strip-meta':"
 echo "------------------------------------------------------------------------------------"
-hcdev package --output dist/app-spec-rust.hcpkg --strip-meta
+hc package --output dist/app-spec-rust.hcpkg --strip-meta
 echo "DONE."
 echo "===================================================================================="
 echo "BUILDING JS test file with webpack:"
