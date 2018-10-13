@@ -52,5 +52,13 @@ test('create/get_post rountrip', (t) => {
 })
 
 
+test('get_post with non-existant hash returns empty object', (t) => {
+  t.plan(1)
 
+  const post_hash = "RANDOM"
+  const params_get = JSON.stringify({post_hash})
+  const result = app.call("blog", "main", "get_post", params_get)
+
+  const entry = JSON.parse(result)
+  t.same(entry, {})
 })
