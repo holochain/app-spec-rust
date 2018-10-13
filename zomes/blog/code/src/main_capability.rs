@@ -35,16 +35,35 @@ zome_functions! {
     }
 
     get_post: |post_hash: String| {
+        // get_entry returns a Result<<Option<String>>, RibosomeError>
+        // It's a RibosomeError if something went wrong.
+        // The Option<String> means we can either find the requested
+        // entry or not (both are not errrors).
         match hdk::get_entry(post_hash) {
-            Ok(maybe_entry) => {
-                match maybe_entry {
-                    Some(entry) => match serde_json::from_str(&entry) {
-                        Ok(post) => post,
-                        Err(err) => json!({"error deserializing post": err.to_string()}),
-                    },
-                    None => json!({}),
-                }
+            // In the case we don't get an error
+            // it might be an entry ...
+            Ok(maybe_entry) => match maybe_entry {
+                // ...so we match on that Option<String>
+                // If it is some String we expect that string
+                // to hold a stringified JSON object.
+                // serde_json::from_str() tries to deserialize
+                // that String into a serde_json::Value and
+                // returns a result:
+                Some(entry) => match serde_json::from_str(&entry) {
+                    // In case deserialization worked, we return
+                    // that object as it is:
+                    Ok(post) => post,
+                    // This error means that the string in `entry`
+                    // is not a stringified JSON which should not
+                    // happen but might be a bug somewhere else:
+                    Err(err) => json!({"error deserializing post": err.to_string()}),
+                },
+                // If get_entry() could not find an entry with the given
+                // hash, we just return an empty JSON object:
+                None => json!({}),
             },
+            // In case of an error we just use RibosomeError's
+            // to_json() function to return that error
             Err(hdk_error) => hdk_error.to_json(),
         }
     }
