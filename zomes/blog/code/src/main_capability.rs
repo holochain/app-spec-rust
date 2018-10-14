@@ -12,7 +12,7 @@ zome_functions! {
                     Err(err) => json!({"error deserializing post": err.to_string()}),
                     Ok(post) => {
                         // Post is an "entry", so give it to get_entry_address
-                        let maybe_address = hdk::get_entry_address(post);
+                        let maybe_address = hdk::hash_entry(post);
                         match maybe_address {
                             Ok(address) => json!({address: address}),
                             Err(hdk_error) => hdk_error.to_json(),
