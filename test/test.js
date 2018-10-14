@@ -6,7 +6,7 @@ app.start()
 test('get entry address', (t) => {
   t.plan(1)
 
-  const result = app.call("blog", "main", "get_entry_address", "")
+  const result = app.call("blog", "main", "hash_entry", "")
 
   // TODO: this address is incorrect, but once we're getting an address out
   // make it the right one
