@@ -29,4 +29,5 @@ make
 echo "COMPILING HCSHELL"
 cd /holochain/holosqape/hcshell
 qmake CONFIG+=release
+make clean
 make
