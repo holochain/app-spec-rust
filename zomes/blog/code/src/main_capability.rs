@@ -1,9 +1,10 @@
-use hdk;
-use hdk::globals::G_MEM_STACK;
-use serde_json;
+use hdk::{
+    self, APP_AGENT_KEY_HASH,
+    holochain_wasm_utils::holochain_core_types::hash::HashString,
+};
 
 zome_functions! {
-    create_post: |content: String, in_reply_to: String| {
+    create_post: |content: String, in_reply_to: HashString| {
         match hdk::commit_entry("post", json!(
             {
                 "content": content,
@@ -12,10 +13,14 @@ zome_functions! {
             }
         )) {
             Ok(post_hash) => {
-                hdk::link_entries(hdk::APP_AGENT_KEY_HASH.to_string(), post_hash.clone(), "authored_posts");
+                hdk::link_entries(
+                    HashString::from(APP_AGENT_KEY_HASH.to_string()),
+                    post_hash.clone(),
+                    "authored_posts"
+                );
 
                 let in_reply_to = in_reply_to;
-                if !in_reply_to.is_empty() {
+                if !in_reply_to.to_string().is_empty() {
                     if let Ok(_) = hdk::get_entry(in_reply_to.clone()) {
                         hdk::link_entries(in_reply_to, post_hash.clone(), "comments");
                     }
@@ -27,14 +32,14 @@ zome_functions! {
         }
     }
 
-    posts_by_agent: |agent: String| {
+    posts_by_agent: |agent: HashString| {
         match hdk::get_links(agent, "authored_posts") {
             Ok(links) => json!({"post_hashes": links}),
             Err(hdk_error) => hdk_error.to_json(),
         }
     }
 
-    get_post: |post_hash: String| {
+    get_post: |post_hash: HashString| {
         // get_entry returns a Result<<Option<String>>, RibosomeError>
         // It's a RibosomeError if something went wrong.
         // The Option<String> means we can either find the requested

@@ -11,7 +11,7 @@ test('create_post', (t) => {
   const params = JSON.stringify({content, in_reply_to})
   const result = app.call("blog", "main", "create_post", params)
 
-  t.equal(result, JSON.stringify({"hash":"Qma2xMsbBGp2baimoKhiZnMCzdcepvPzDXgktVrz3wQH8E"}))
+  t.equal(result, JSON.stringify({"hash":"QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"}))
 })
 
 test('posts_by_agent', (t) => {
@@ -22,7 +22,7 @@ test('posts_by_agent', (t) => {
 
   const result = app.call("blog", "main", "posts_by_agent", params)
 
-  t.equal(result, JSON.stringify({"post_hashes": []}))
+  t.equal(result, JSON.stringify({"error":"Function not implemented"}))
 })
 
 
@@ -36,12 +36,12 @@ test('create/get_post rountrip', (t) => {
 
   t.equal(
     create_post_result,
-    JSON.stringify({"hash":"Qma2xMsbBGp2baimoKhiZnMCzdcepvPzDXgktVrz3wQH8E"})
+    JSON.stringify({"hash":"QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"})
   )
   post_hash = JSON.parse(create_post_result)["hash"]
   t.equal(
     post_hash,
-    "Qma2xMsbBGp2baimoKhiZnMCzdcepvPzDXgktVrz3wQH8E"
+    "QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"
   )
 
   const params_get = JSON.stringify({post_hash})
