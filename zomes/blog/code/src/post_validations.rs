@@ -11,7 +11,6 @@
 // This file is WIP and placeholder to be overwritten by future
 // PR after completing the design discussion and reaching consensus
 // about these specifics.
-use serde_json;
 
 #[derive(Serialize, Deserialize)]
 struct Post {
