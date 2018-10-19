@@ -9,6 +9,6 @@
 // about these specifics.
 
 #[no_mangle]
-pub extern "C" fn genesis(_offset: i32) -> i32{
+pub extern "C" fn genesis(_offset: i32) -> i32 {
     0
 }

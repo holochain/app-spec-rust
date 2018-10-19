@@ -15,11 +15,11 @@
 #[derive(Serialize, Deserialize)]
 struct Post {
     content: String,
-    date_created: String
+    date_created: String,
 }
 
 #[no_mangle]
-pub extern "C" fn validate_commit(_offset: i32) -> i32{
+pub extern "C" fn validate_commit(_offset: i32) -> i32 {
     0
 }
 
