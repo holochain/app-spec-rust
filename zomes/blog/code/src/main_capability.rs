@@ -1,6 +1,10 @@
 use hdk::{
-    self, APP_AGENT_KEY_HASH,
+    self,
+    holochain_wasm_utils::api_serialization::get_entry::{
+        GetEntryOptions, GetEntryResult, GetResultStatus,
+    },
     holochain_wasm_utils::holochain_core_types::hash::HashString,
+    APP_AGENT_KEY_HASH,
 };
 
 zome_functions! {
@@ -21,7 +25,7 @@ zome_functions! {
 
                 let in_reply_to = in_reply_to;
                 if !in_reply_to.to_string().is_empty() {
-                    if let Ok(_) = hdk::get_entry(in_reply_to.clone()) {
+                    if let Ok(_) = hdk::get_entry(in_reply_to.clone(), GetEntryOptions{}) {
                         hdk::link_entries(in_reply_to, post_hash.clone(), "comments");
                     }
                 }
@@ -40,21 +44,20 @@ zome_functions! {
     }
 
     get_post: |post_hash: HashString| {
-        // get_entry returns a Result<<Option<String>>, RibosomeError>
-        // It's a RibosomeError if something went wrong.
-        // The Option<String> means we can either find the requested
-        // entry or not (both are not errrors).
-        match hdk::get_entry(post_hash) {
+        // get_entry returns a Result<GetEntryResult, RibosomeError>
+        // It's a RibosomeError if something went wrong
+        // The contents of the GetEntryResult will depend on the options passed
+        // in to get_entry()
+        match hdk::get_entry(post_hash,GetEntryOptions{}) {
             // In the case we don't get an error
             // it might be an entry ...
-            Ok(maybe_entry) => match maybe_entry {
-                // ...so we match on that Option<String>
-                // If it is some String we expect that string
-                // to hold a stringified JSON object.
-                // serde_json::from_str() tries to deserialize
-                // that String into a serde_json::Value and
+            Ok(result) => match result.status {
+                // ...so we match on that ResultStatus
+                // If it is Found then we can use
+                // serde_json::from_str() to deserialize
+                // the result.entry a serde_json::Value and
                 // returns a result:
-                Some(entry) => match serde_json::from_str(&entry) {
+                GetResultStatus::Found => match serde_json::from_str(&result.entry) {
                     // In case deserialization worked, we return
                     // that object as it is:
                     Ok(post) => post,
@@ -65,7 +68,7 @@ zome_functions! {
                 },
                 // If get_entry() could not find an entry with the given
                 // hash, we just return an empty JSON object:
-                None => json!({}),
+                GetResultStatus::NotFound => json!({}),
             },
             // In case of an error we just use RibosomeError's
             // to_json() function to return that error
