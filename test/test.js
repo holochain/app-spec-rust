@@ -22,7 +22,7 @@ test('post max content size 280 characters', (t) => {
   const params = JSON.stringify({content, in_reply_to})
   const result = app.call("blog", "main", "create_post", params)
 
-  t.equal(result, JSON.stringify({"validationError":"Content too long"}))
+  t.equal(result, JSON.stringify({"error": "Validation failed: \"Content too long\""}))
 })
 
 test('posts_by_agent', (t) => {
