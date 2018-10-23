@@ -49,7 +49,7 @@ zome_functions! {
 
     my_posts: | | {
         match hdk::get_links(&HashString::from(AGENT_KEY_HASH.to_string()), "authored_posts") {
-            Ok(result) => json!({"post_hashes": &HashString::from(AGENT_KEY_HASH.to_string())}),
+            Ok(result) => json!({"post_hashes": result.links}),
             Err(hdk_error) => hdk_error.to_json(),
         }
     }

@@ -49,7 +49,7 @@ test('my_posts', (t) => {
 
   const result = app.call("blog", "main", "my_posts", JSON.stringify({}))
 
-  t.equal(result, JSON.stringify({"post_hashes":["asdf", "asdf"]}))
+  t.equal(result, JSON.stringify({"post_hashes":["Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP","QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"]}))
 })
 
 
