@@ -1,10 +1,10 @@
 use hdk::{
     self,
     holochain_wasm_utils::api_serialization::get_entry::{
-        GetEntryOptions, GetEntryResult, GetResultStatus,
+        GetEntryOptions, GetResultStatus,
     },
     holochain_wasm_utils::holochain_core_types::hash::HashString,
-    APP_AGENT_KEY_HASH,
+    AGENT_KEY_HASH,
 };
 
 zome_functions! {
@@ -17,8 +17,8 @@ zome_functions! {
             }
         )) {
             Ok(post_hash) => {
-                hdk::link_entries(
-                    HashString::from(APP_AGENT_KEY_HASH.to_string()),
+                let _ = hdk::link_entries(
+                    HashString::from(AGENT_KEY_HASH.to_string()),
                     post_hash.clone(),
                     "authored_posts"
                 );
