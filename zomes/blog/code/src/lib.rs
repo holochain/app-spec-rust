@@ -25,25 +25,25 @@ define_zome! {
             create_post: {
                 inputs: |content: String, in_reply_to: HashString|,
                 outputs: |hash: String|,
-                func: main::handle_create_post,
+                handler: main::handle_create_post,
             },
 
             posts_by_agent: {
                 inputs: |agent: HashString|,
                 outputs: |post_hashes: Vec<HashString>|,
-                func: main::handle_posts_by_agent,
+                handler: main::handle_posts_by_agent,
             },
 
             get_post: {
                 inputs: |post_hash: HashString|,
                 outputs: |post: serde_json::Value|,
-                func: main::handle_get_post,
+                handler: main::handle_get_post,
             }
 
             my_posts: {
                 inputs: | |,
                 outputs: |post_hashes: Vec<HashString>|,
-                func: main::handle_my_posts,
+                handler: main::handle_my_posts,
             }
         }
     }
