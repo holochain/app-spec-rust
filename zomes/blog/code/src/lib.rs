@@ -20,6 +20,6 @@ use hdk::meta::ZomeDefinition;
 ///
 /// Will soon be replaced by a define_zome! macro
 #[no_mangle]
-pub extern fn zome_setup(zd: &mut ZomeDefinition) {
+pub extern "C" fn zome_setup(zd: &mut ZomeDefinition) {
     zd.define(post::definition());
 }
