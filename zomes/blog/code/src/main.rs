@@ -7,43 +7,42 @@ use hdk::{
     AGENT_KEY_HASH,
 };
 
-zome_functions! {
-    create_post: |content: String, in_reply_to: HashString| {
-        match hdk::commit_entry("post", json!(
-            {
-                "content": content,
-                "date_created": "now"//SystemTime::now()
-                //SystemTime::now() panics when executed in wasmi
-            }
-        )) {
-            Ok(post_hash) => {
-                let _ = hdk::link_entries(
-                    HashString::from(AGENT_KEY_HASH.to_string()),
-                    post_hash.clone(),
-                    "authored_posts"
-                );
+pub fn create_post(content: String, in_reply_to: HashString) -> serde_json::Value {
+    match hdk::commit_entry("post", json!(
+        {
+            "content": content,
+            "date_created": "now"//SystemTime::now()
+            //SystemTime::now() panics when executed in wasmi
+        }
+    )) {
+        Ok(post_hash) => {
+            let _ = hdk::link_entries(
+                HashString::from(AGENT_KEY_HASH.to_string()),
+                post_hash.clone(),
+                "authored_posts"
+            );
 
-                let in_reply_to = in_reply_to;
-                if !in_reply_to.to_string().is_empty() {
-                    if let Ok(_) = hdk::get_entry(in_reply_to.clone(), GetEntryOptions{}) {
-                        hdk::link_entries(in_reply_to, post_hash.clone(), "comments");
-                    }
+            let in_reply_to = in_reply_to;
+            if !in_reply_to.to_string().is_empty() {
+                if let Ok(_) = hdk::get_entry(in_reply_to.clone(), GetEntryOptions{}) {
+                    hdk::link_entries(in_reply_to, post_hash.clone(), "comments");
                 }
+            }
 
-                json!({"hash": post_hash})
-            },
-            Err(hdk_error) => hdk_error.to_json(),
-        }
+            json!({"hash": post_hash})
+        },
+        Err(hdk_error) => hdk_error.to_json(),
     }
+}
 
-    posts_by_agent: |agent: HashString| {
-        match hdk::get_links(agent, "authored_posts") {
-            Ok(links) => json!({"post_hashes": links}),
-            Err(hdk_error) => hdk_error.to_json(),
-        }
+pub fn posts_by_agent(agent: HashString) -> serde_json::Value {
+    match hdk::get_links(agent, "authored_posts") {
+        Ok(links) => json!({"post_hashes": links}),
+        Err(hdk_error) => hdk_error.to_json(),
     }
+}
 
-    get_post: |post_hash: HashString| {
+pub fn get_post(post_hash: HashString) -> serde_json::Value {
         // get_entry returns a Result<GetEntryResult, RibosomeError>
         // It's a RibosomeError if something went wrong
         // The contents of the GetEntryResult will depend on the options passed
