@@ -20,7 +20,7 @@ define_zome! {
         true
     }
 
-    zome_functions: {
+    functions: {
         main (public) {
             create_post: {
                 inputs: |content: String, in_reply_to: HashString|,
