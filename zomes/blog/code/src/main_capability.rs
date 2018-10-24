@@ -4,7 +4,7 @@ use hdk::{
         GetEntryOptions, GetResultStatus,
     },
     holochain_wasm_utils::holochain_core_types::hash::HashString,
-    AGENT_KEY_HASH,
+    AGENT_INITIAL_HASH,
 };
 
 zome_functions! {
@@ -17,16 +17,20 @@ zome_functions! {
             }
         )) {
             Ok(post_hash) => {
-                let _ = hdk::link_entries(
-                    HashString::from(AGENT_KEY_HASH.to_string()),
-                    post_hash.clone(),
+                let link_result = hdk::link_entries(
+                    &HashString::from(AGENT_INITIAL_HASH.to_string()),
+                    &post_hash,
                     "authored_posts"
                 );
+
+                if link_result.is_err() {
+                    return json!({"link error": link_result.err().unwrap()})
+                }
 
                 let in_reply_to = in_reply_to;
                 if !in_reply_to.to_string().is_empty() {
                     if let Ok(_) = hdk::get_entry(in_reply_to.clone(), GetEntryOptions{}) {
-                        hdk::link_entries(in_reply_to, post_hash.clone(), "comments");
+                        let _ = hdk::link_entries(&in_reply_to, &post_hash, "comments");
                     }
                 }
 
@@ -37,8 +41,15 @@ zome_functions! {
     }
 
     posts_by_agent: |agent: HashString| {
-        match hdk::get_links(agent, "authored_posts") {
-            Ok(links) => json!({"post_hashes": links}),
+        match hdk::get_links(&agent, "authored_posts") {
+            Ok(result) => json!({"post_hashes": result.links}),
+            Err(hdk_error) => hdk_error.to_json(),
+        }
+    }
+
+    my_posts: | | {
+        match hdk::get_links(&HashString::from(AGENT_INITIAL_HASH.to_string()), "authored_posts") {
+            Ok(result) => json!({"post_hashes": result.links}),
             Err(hdk_error) => hdk_error.to_json(),
         }
     }
