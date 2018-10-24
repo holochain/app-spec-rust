@@ -4,7 +4,7 @@ use hdk::{
         GetEntryOptions, GetResultStatus,
     },
     holochain_wasm_utils::holochain_core_types::hash::HashString,
-    AGENT_KEY_HASH,
+    AGENT_INITIAL_HASH,
 };
 
 zome_functions! {
@@ -18,7 +18,7 @@ zome_functions! {
         )) {
             Ok(post_hash) => {
                 let link_result = hdk::link_entries(
-                    &HashString::from(AGENT_KEY_HASH.to_string()),
+                    &HashString::from(AGENT_INITIAL_HASH.to_string()),
                     &post_hash,
                     "authored_posts"
                 );
@@ -48,7 +48,7 @@ zome_functions! {
     }
 
     my_posts: | | {
-        match hdk::get_links(&HashString::from(AGENT_KEY_HASH.to_string()), "authored_posts") {
+        match hdk::get_links(&HashString::from(AGENT_INITIAL_HASH.to_string()), "authored_posts") {
             Ok(result) => json!({"post_hashes": result.links}),
             Err(hdk_error) => hdk_error.to_json(),
         }
