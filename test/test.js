@@ -33,7 +33,24 @@ test('posts_by_agent', (t) => {
 
   const result = app.call("blog", "main", "posts_by_agent", params)
 
-  t.equal(result, JSON.stringify({"error":"FunctionNotImplemented"}))
+  t.equal(result, JSON.stringify({"post_hashes":[]}))
+})
+
+test('my_posts', (t) => {
+  t.plan(1)
+
+  app.call("blog", "main", "create_post",
+    JSON.stringify({"content": "Holo world", "in_reply_to": ""})
+  )
+
+  app.call("blog", "main", "create_post",
+    JSON.stringify({"content": "Another post", "in_reply_to": ""})
+  )
+
+  const result = app.call("blog", "main", "my_posts", JSON.stringify({}))
+  const ordering1 = result == JSON.stringify({"post_hashes":["Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP","QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"]})
+  const ordering2 = result == JSON.stringify({"post_hashes":["QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg","Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP"]})
+  t.ok(ordering1 || ordering2, "Did not get post hashes [\"QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg\",\"Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP\"] in any ordering")
 })
 
 
