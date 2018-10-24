@@ -24,7 +24,7 @@ define_zome! {
         main (public) {
             create_post: {
                 inputs: |content: String, in_reply_to: HashString|,
-                output: |hash: String|,
+                outputs: |hash: String|,
                 func: main::handle_create_post,
             },
 
