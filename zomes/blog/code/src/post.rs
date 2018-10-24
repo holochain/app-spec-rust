@@ -32,27 +32,15 @@ pub fn definition() -> ValidatingEntryType {
         name: "post",
         description: "",
         sharing: Sharing::Public,
+        native_type: Post,
 
         validation_package: || {
             hdk::ValidationPackageDefinition::ChainFull
         },
 
-        validation_function: |_entry: Post, _ctx: hdk::ValidationData| {
-            Err(String::from("Not in use yet. Will replace validations! macro below soon."))
-        }
-    )
-}
-
-/// This macro wraps validation functions similar to how
-/// zome_functions! takes care of argument serialization.
-/// The fist arguments type (here Post) can be set to anything that
-/// implements serde::Deserialize, like our Post struct above.
-/// Schema check is then handled automatically by the code produced by this macro.
-validations! {
-    [ENTRY] validate_post {
-        |post: Post, _ctx: hdk::ValidationData| {
+        validation: |post: Post, _ctx: hdk::ValidationData| {
             (post.content.len() < 280)
                 .ok_or_else(|| String::from("Content too long"))
         }
-    }
+    )
 }
