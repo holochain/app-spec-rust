@@ -38,7 +38,7 @@ pub fn definition() -> ValidatingEntryType {
             hdk::ValidationPackageDefinition::ChainFull
         },
 
-        validation_function: |_entry: Post, _ctx: hdk::ValidationData| {
+        validation: |_entry: Post, _ctx: hdk::ValidationData| {
             (post.content.len() < 280)
                 .ok_or_else(|| String::from("Content too long"))
         }
