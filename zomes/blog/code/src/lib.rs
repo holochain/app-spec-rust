@@ -39,6 +39,12 @@ define_zome! {
                 outputs: |post: serde_json::Value|,
                 func: main::handle_get_post,
             }
+
+            my_posts: {
+                inputs: | |,
+                outputs: |post_hashes: Vec<HashString>|,
+                func: main::handle_my_posts,
+            }
         }
     }
 }
