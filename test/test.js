@@ -48,8 +48,9 @@ test('my_posts', (t) => {
   )
 
   const result = app.call("blog", "main", "my_posts", JSON.stringify({}))
-
-  t.equal(result, JSON.stringify({"post_hashes":["Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP","QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"]}))
+  const ordering1 = result == JSON.stringify({"post_hashes":["Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP","QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"]})
+  const ordering2 = result == JSON.stringify({"post_hashes":["QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg","Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP"]})
+  t.ok(ordering1 || ordering2, "Did not get post hashes [\"QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg\",\"Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP\"] in any ordering")
 })
 
 
