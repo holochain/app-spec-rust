@@ -3,7 +3,7 @@ use hdk::{
     holochain_wasm_utils::api_serialization::get_entry::{
         GetEntryOptions, GetResultStatus,
     },
-    holochain_wasm_utils::holochain_core_types::hash::HashString,
+    holochain_core_types::hash::HashString,
     AGENT_INITIAL_HASH,
 };
 
