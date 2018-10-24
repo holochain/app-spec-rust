@@ -12,32 +12,32 @@ pub mod post;
 
 
 define_zome! {
-    entries [
+    entries: [
         post::definition()
-    ],
+    ]
 
-    genesis: {
+    genesis: || {
         true
     }
 
-    zome_functions {
+    zome_functions: {
         main (public) {
-            create_post {
+            create_post: {
                 inputs: |content: String, in_reply_to: HashString|,
                 output: |hash: String|,
-                func: main::create_post,
+                func: main::handle_create_post,
             },
 
             posts_by_agent: {
                 inputs: |agent: HashString|,
                 outputs: |post_hashes: Vec<HashString>|,
-                func: main::posts_by_agent,
+                func: main::handle_posts_by_agent,
             },
 
             get_post: {
                 inputs: |post_hash: HashString|,
                 outputs: |post: serde_json::Value|,
-                func: main::get_post,
+                func: main::handle_get_post,
             }
         }
     }

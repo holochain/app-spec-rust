@@ -7,7 +7,7 @@ use hdk::{
     AGENT_KEY_HASH,
 };
 
-pub fn create_post(content: String, in_reply_to: HashString) -> serde_json::Value {
+pub fn handle_create_post(content: String, in_reply_to: HashString) -> serde_json::Value {
     match hdk::commit_entry("post", json!(
         {
             "content": content,
@@ -35,14 +35,14 @@ pub fn create_post(content: String, in_reply_to: HashString) -> serde_json::Valu
     }
 }
 
-pub fn posts_by_agent(agent: HashString) -> serde_json::Value {
+pub fn handle_posts_by_agent(agent: HashString) -> serde_json::Value {
     match hdk::get_links(agent, "authored_posts") {
         Ok(links) => json!({"post_hashes": links}),
         Err(hdk_error) => hdk_error.to_json(),
     }
 }
 
-pub fn get_post(post_hash: HashString) -> serde_json::Value {
+pub fn handle_get_post(post_hash: HashString) -> serde_json::Value {
         // get_entry returns a Result<GetEntryResult, RibosomeError>
         // It's a RibosomeError if something went wrong
         // The contents of the GetEntryResult will depend on the options passed
