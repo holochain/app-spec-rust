@@ -1,14 +1,14 @@
 [package]
 name = "code"
-version = "0.1.0"
-authors = ["Nicolas Luck <nicolas@lucksus.eu>"]
+version = "0.0.1"
+authors = ["Holochain Core Dev Team <devcore@holochain.org>"]
 
 [dependencies]
 serde = "1.0"
 serde_json = "1.0"
-hdk = { git = "https://github.com/holochain/hdk-rust"}
+hdk = { git = "https://github.com/holochain/holochain-rust" , branch = "develop" }
 serde_derive = "1.0"
-holochain_wasm_utils = { git = "https://github.com/holochain/holochain-rust" , branch = "develop" }
+boolinator = "2.4"
 
 [lib]
 path = "src/lib.rs"

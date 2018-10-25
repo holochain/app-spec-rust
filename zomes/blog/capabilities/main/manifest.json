@@ -15,6 +15,15 @@
       ]
     },
     {
+      "name": "hash_post",
+      "inputs": [
+        {"name": "content", "type": "string"}
+      ],
+      "outputs": [
+        {"name": "hash", "type": "string"}
+      ]
+    },
+    {
         "name": "create_post",
         "inputs": [
           {"name": "content", "type": "string"},
@@ -29,6 +38,20 @@
       "inputs": [
         {"name": "agent", "type": "hash"}
       ],
+      "outputs": [
+        {"name": "post_hashes", "type": "array"}
+      ]
+    },
+    {
+      "name": "my_posts",
+      "inputs": [],
+      "outputs": [
+        {"name": "post_hashes", "type": "array"}
+      ]
+    },
+    {
+      "name": "my_posts_as_committed",
+      "inputs": [],
       "outputs": [
         {"name": "post_hashes", "type": "array"}
       ]
