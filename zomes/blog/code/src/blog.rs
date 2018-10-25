@@ -22,7 +22,7 @@ pub fn handle_check_sum(num1: u32, num2: u32) -> serde_json::Value {
     };
     let maybe_result = hdk::call("summer", "main", "sum", serde_json::to_value(call_input).unwrap());
     match maybe_result {
-        Ok(result) => result,
+        Ok(result) => serde_json::from_str(&result).unwrap(),
         Err(hdk_error) => hdk_error.to_json(),
     }
 }
