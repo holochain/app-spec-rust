@@ -5,6 +5,15 @@
 
   "functions": [
     {
+        "name": "hash_post",
+        "inputs": [
+          {"name": "content", "type": "string"}
+        ],
+        "outputs": [
+          {"name": "hash", "type": "string"}
+        ]
+    },
+    {
         "name": "create_post",
         "inputs": [
           {"name": "content", "type": "string"},

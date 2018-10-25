@@ -7,8 +7,18 @@ use hdk::{
     AGENT_INITIAL_HASH,
 };
 
+pub fn handle_hash_post(content: String) -> serde_json::Value {
+    let maybe_address = hdk::hash_entry("post",json!({"content": content,"date_created": "now"}));
+    match maybe_address {
+        Ok(address) => {
+            let addr = address.clone();
+            json!({address: addr})
+        }
+        Err(hdk_error) => hdk_error.to_json(),
+    }
+}
 
- pub fn handle_get_an_address(post_hash: HashString) -> serde_json::Value {
+pub fn handle_get_an_address(post_hash: HashString) -> serde_json::Value {
      match hdk::get_entry_result(post_hash, GetEntryOptions{}) {
         Err(hdk_error) => hdk_error.to_json(),
         Ok(result) => match result.status {

@@ -6,11 +6,9 @@ app.start()
 test('get entry address', (t) => {
   t.plan(1)
 
-  const result = app.call("blog", "main", "hash_entry", "")
+  const result = app.call("blog", "main", "hash_post", "Holo world")
 
-  // TODO: this address is incorrect, but once we're getting an address out
-  // make it the right one
-  t.equal(result, JSON.stringify({"address":"QmB2xMsbBGp2baimoKhiZnMCzdcepvPzDXgktVrz3wQH8E"}))
+  t.equal(result, JSON.stringify({"address":"QmZi7c1G2qAN6Y5wxHDB9fLhSaSVBJe28ZVkiPraLEcvou"}))
 })
 
 test('create_post', (t) => {
