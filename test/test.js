@@ -6,9 +6,10 @@ app.start()
 test('get entry address', (t) => {
   t.plan(1)
 
-  const result = app.call("blog", "main", "hash_post", "Holo world")
+  const params = JSON.stringify({content: "Holo world"})
+  const result = app.call("blog", "main", "hash_post", params)
 
-  t.equal(result, JSON.stringify({"address":"QmZi7c1G2qAN6Y5wxHDB9fLhSaSVBJe28ZVkiPraLEcvou"}))
+  t.equal(result, JSON.stringify({"address":"QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"}))
 })
 
 test('create_post', (t) => {
