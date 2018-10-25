@@ -3,6 +3,30 @@ const test = require('tape');
 const app = Container.loadAndInstantiate("dist/app-spec-rust.hcpkg")
 app.start()
 
+
+
+test('my_posts_as_committed', (t) => {
+    t.plan(1)
+
+    // TODO: this test moved to the top because doing a clean instance failed
+    //       see https://github.com/holochain/app-spec-rust/issues/40
+    // clean instance for this test!
+    // const app = Container.loadAndInstantiate("dist/app-spec-rust.hcpkg")
+    // app.start()
+
+    app.call("blog", "main", "create_post",
+             JSON.stringify({"content": "Holo world", "in_reply_to": ""})
+            )
+
+    app.call("blog", "main", "create_post",
+             JSON.stringify({"content": "Another post", "in_reply_to": ""})
+            )
+
+    const result = app.call("blog", "main", "my_posts_as_committed", JSON.stringify({}))
+    //const ordering2 = result == JSON.stringify({"post_hashes":["QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg","Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP"]})
+    t.equal(result, JSON.stringify({"post_hashes":["Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP","QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"]}))
+
+})
 test('get entry address', (t) => {
   t.plan(1)
 
@@ -61,25 +85,6 @@ test('my_posts', (t) => {
   const ordering2 = result == JSON.stringify({"post_hashes":["QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg","Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP"]})
   t.ok(ordering1 || ordering2, "Did not get post hashes [\"QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg\",\"Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP\"] in any ordering")
 })
-
-
-test('my_posts_as_committed', (t) => {
-    t.plan(1)
-
-    app.call("blog", "main", "create_post",
-             JSON.stringify({"content": "Holo world", "in_reply_to": ""})
-            )
-
-    app.call("blog", "main", "create_post",
-             JSON.stringify({"content": "Another post", "in_reply_to": ""})
-            )
-
-    const result = app.call("blog", "main", "my_posts_as_commited", JSON.stringify({}))
-    //const ordering2 = result == JSON.stringify({"post_hashes":["QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg","Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP"]})
-    t.equal(result, JSON.stringify({"post_hashes":["Qme9vatSfYs7MpejUUrheYYUA1B2TYdVBDycuoimtHudMP","QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"]}))
-
-})
-
 
 
 test('create/get_post rountrip', (t) => {
