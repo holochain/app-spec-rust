@@ -58,6 +58,12 @@ define_zome! {
                 outputs: |post_hashes: Vec<HashString>|,
                 handler: blog::handle_my_posts
             }
+
+            my_posts_as_commited: {
+                inputs: | |,
+                outputs: |post_hashes: Vec<HashString>|,
+                handler: blog::handle_my_posts_as_commited
+            }
         }
     }
 }
