@@ -1,10 +1,6 @@
 /// This file holds everything that represents the "post" entry type.
 use boolinator::*;
-use hdk::{
-    self,
-    entry_definition::ValidatingEntryType,
-    holochain_dna::zome::entry_types::Sharing,
-};
+use hdk::{self, entry_definition::ValidatingEntryType, holochain_dna::zome::entry_types::Sharing};
 use serde_json;
 
 /// We declare the structure of our entry type with this Rust struct.
@@ -13,7 +9,7 @@ use serde_json;
 ///
 /// So this is our normative schema definition:
 #[derive(Serialize, Deserialize)]
-struct Post {
+pub struct Post {
     content: String,
     date_created: String,
 }
