@@ -87,6 +87,17 @@ pub fn handle_my_posts() -> serde_json::Value {
     }
 }
 
+
+pub fn handle_my_posts_as_commited() -> serde_json::Value {
+    // in the current implementation of hdk::query the second parameter
+    // specifies the maximum number of items to return, with 0 meaning all.
+    // future versions will also include more parameters for more complex
+    // queries.
+    match hdk::query("post",0) {
+        Ok(posts) => json!({"post_hashes": posts}),
+        Err(hdk_error) => hdk_error.to_json(),
+    }
+}
 pub fn handle_get_post(post_hash: HashString) -> serde_json::Value {
     // get_entry returns a Result<Option<T>, ZomeApiError>
     // where T is the type that you used to commit the entry, in this case a Blog

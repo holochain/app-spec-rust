@@ -40,6 +40,13 @@
       ]
     },
     {
+      "name": "my_posts_as_committed",
+      "inputs": [],
+      "outputs": [
+        {"name": "post_hashes", "type": "array"}
+      ]
+    },
+    {
       "name": "get_post",
       "inputs": [
         {"name": "post_hash", "type": "hash"}
