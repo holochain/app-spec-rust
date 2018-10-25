@@ -6,7 +6,10 @@
 
 echo "COMPILING HOLOCHAIN-CMD"
 cd /holochain/holochain-cmd
+git reset --hard
 git pull
+git submodule init
+git submodule update
 cargo update
 cargo +nightly build --release
 
