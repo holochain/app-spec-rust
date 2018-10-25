@@ -2,13 +2,45 @@ use hdk::{
     self,
     error::ZomeApiError,
     holochain_wasm_utils::api_serialization::get_entry::{
-        GetEntryOptions,
+        GetEntryOptions, GetResultStatus,
     },
     holochain_core_types::hash::HashString,
     AGENT_INITIAL_HASH,
 };
 
 use post::Post;
+
+pub fn handle_hash_post(content: String) -> serde_json::Value {
+    let maybe_address = hdk::hash_entry("post",json!({"content": content,"date_created": "now"}));
+    match maybe_address {
+        Ok(address) => {
+            json!({"address": address})
+        }
+        Err(hdk_error) => hdk_error.to_json(),
+    }
+}
+
+pub fn handle_get_an_address(post_hash: HashString) -> serde_json::Value {
+     match hdk::get_entry_result(post_hash, GetEntryOptions{}) {
+        Err(hdk_error) => hdk_error.to_json(),
+        Ok(result) => match result.status {
+            GetResultStatus::NotFound => json!({}),
+            GetResultStatus::Found => match serde_json::from_str(&result.entry) {
+                Err(err) => json!({"error deserializing post": err.to_string()}),
+                Ok(post) => {
+                    // Post is an "entry", so give it to get_entry_address
+                    let maybe_address = hdk::hash_entry("post",post);
+                    match maybe_address {
+                        Ok(address) => {
+                            json!({"address": address})
+                        }
+                        Err(hdk_error) => hdk_error.to_json(),
+                    }
+                },
+            },
+        },
+    }
+}
 
 pub fn handle_create_post(content: String, in_reply_to: HashString) -> serde_json::Value {
     match hdk::commit_entry("post", json!(

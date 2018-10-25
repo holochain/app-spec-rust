@@ -3,6 +3,15 @@ const test = require('tape');
 const app = Container.loadAndInstantiate("dist/app-spec-rust.hcpkg")
 app.start()
 
+test('get entry address', (t) => {
+  t.plan(1)
+
+  const params = JSON.stringify({content: "Holo world"})
+  const result = app.call("blog", "main", "hash_post", params)
+
+  t.equal(result, JSON.stringify({"address":"QmdJHaznj5rAtMV5nXLK87tdCBoc2NJRtQW4r3w7LZ6HSg"}))
+})
+
 test('create_post', (t) => {
   t.plan(1)
 
