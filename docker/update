@@ -17,6 +17,8 @@ git submodule update
 
 echo "COMPILING HOLOCHAIN RUST"
 cd /holochain/holosqape/holochain-rust
+git checkout develop
+git pull
 cargo update
 cargo +$TOOLS_NIGHTLY build --release
 
