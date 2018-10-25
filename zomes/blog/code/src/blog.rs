@@ -89,6 +89,10 @@ pub fn handle_my_posts() -> serde_json::Value {
 
 
 pub fn handle_my_posts_as_commited() -> serde_json::Value {
+    // in the current implementation of hdk::query the second parameter
+    // specifies the maximum number of items to return, with 0 meaning all.
+    // future versions will also include more parameters for more complex
+    // queries.
     match hdk::query("post",0) {
         Ok(posts) => json!({"post_hashes": posts}),
         Err(hdk_error) => hdk_error.to_json(),
