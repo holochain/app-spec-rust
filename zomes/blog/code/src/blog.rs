@@ -5,7 +5,7 @@ use hdk::{
         GetEntryOptions, GetResultStatus,
     },
     holochain_core_types::hash::HashString,
-    AGENT_INITIAL_HASH,
+    AGENT_ADDRESS,
 };
 
 use post::Post;
@@ -52,7 +52,7 @@ pub fn handle_create_post(content: String, in_reply_to: HashString) -> serde_jso
     )) {
         Ok(post_hash) => {
             let link_result = hdk::link_entries(
-                &HashString::from(AGENT_INITIAL_HASH.to_string()),
+                &HashString::from(AGENT_ADDRESS.to_string()),
                 &post_hash,
                 "authored_posts"
             );
@@ -81,7 +81,7 @@ pub fn handle_posts_by_agent(agent: HashString) -> serde_json::Value {
 }
 
 pub fn handle_my_posts() -> serde_json::Value {
-    match hdk::get_links(&HashString::from(AGENT_INITIAL_HASH.to_string()), "authored_posts") {
+    match hdk::get_links(&HashString::from(AGENT_ADDRESS.to_string()), "authored_posts") {
         Ok(result) => json!({"post_hashes": result.links}),
         Err(hdk_error) => hdk_error.to_json(),
     }
