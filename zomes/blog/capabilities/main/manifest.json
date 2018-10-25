@@ -24,6 +24,13 @@
       ]
     },
     {
+      "name": "my_posts",
+      "inputs": [],
+      "outputs": [
+        {"name": "post_hashes", "type": "array"}
+      ]
+    },
+    {
       "name": "get_post",
       "inputs": [
         {"name": "post_hash", "type": "hash"}
