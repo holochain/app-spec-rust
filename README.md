@@ -4,7 +4,7 @@
 [![PM](https://img.shields.io/badge/pm-waffle-blue.svg?style=flat-square)](https://waffle.io/holochain/org)
 [![Chat](https://img.shields.io/badge/chat-chat%2eholochain%2enet-blue.svg?style=flat-square)](https://chat.holochain.net)
 
-This repository contains a Holochain app that functions as a living specification of Holochain and its [HDK](https://github.com/holochain/hdk-rust) (Holochain Development Toolkit).
+This repository contains a Holochain app that functions as a living specification of Holochain and its Rust [HDK](https://github.com/holochain/holochain-rust/tree/develop/hdk-rust) (Holochain Development Toolkit).
 
 As new features, or changes to the HDK (and the API) are being designed, they will be made concrete by adding a use case to this example app and putting those changes as a pull-request to this repository. As soon as the current master branch in https://github.com/holochain/holochain-rust implements all used features, the PR gets merged here so that this repository's master branch always reflects the feature set available in Holochain's master branch.
 
@@ -21,7 +21,7 @@ Nodejs and NPM, for compiling Javascript tests, Version 8 or higher
 * https://nodejs.org/en/download/
 
 `hcshell`, the holochain-rust container bindings for Javascript, for executing tests
-* https://github.com/holochain/holosqape
+* https://github.com/holochain/holosqape#hcshell
 
 Make sure that all three of these dependencies are available as binary executables in your terminal before continuing. For this, they must all be available in your PATH environment variable. The instructions to accomplish that can be found separately at the above links. To verify it is all working, run each of the following three commands. 
 
@@ -41,13 +41,13 @@ If you see `hcshell X.Y`, where X, and Y are numbers, you've got `hcshell` insta
 
 Make sure that you fully completed the installation of dependencies. Then, within the directory of this repo, cloned to your computer, run the following:
 
-`hc test`
+`./build_and_test.sh`
 
 You should see the tests all passing successfully.
 
 ### Detailed Description
 
-In order to get from the source directory tree to a Holochain app bundle, and then test that, several steps need to be taken which are all automated by [hc test](https://github.com/holochain/holochain-cmd).
+In order to get from the source directory tree to a Holochain DNA package, and then test that, several steps need to be taken which are all automated.
 
 This includes compiling any Rust code projects to WASM, and then assembling a DNA file (.hcpkg) with all configuration snippets and the WASM in it.
 
