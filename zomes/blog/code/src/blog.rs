@@ -10,6 +10,23 @@ use hdk::{
 
 use post::Post;
 
+pub fn handle_check_sum(num1: u32, num2: u32) -> serde_json::Value {
+    #[derive(Serialize)]
+    struct SumInput {
+        num1: u32,
+        num2: u32,
+    };
+    let call_input = SumInput {
+        num1: num1,
+        num2: num2,
+    };
+    let maybe_result = hdk::call("summer", "main", "sum", serde_json::to_value(call_input).unwrap());
+    match maybe_result {
+        Ok(result) => serde_json::from_str(&result).unwrap(),
+        Err(hdk_error) => hdk_error.to_json(),
+    }
+}
+
 pub fn handle_hash_post(content: String) -> serde_json::Value {
     let maybe_address = hdk::hash_entry("post",json!({"content": content,"date_created": "now"}));
     match maybe_address {

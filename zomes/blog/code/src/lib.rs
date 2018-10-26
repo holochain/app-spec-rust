@@ -23,6 +23,12 @@ define_zome! {
 
     functions: {
         main (Public) {
+            check_sum: {
+                inputs: |num1: u32, num2: u32|,
+                outputs: |post: serde_json::Value|,
+                handler: blog::handle_check_sum
+            }
+
             hash_post: {
                 inputs: |content: String|,
                 outputs: |post: serde_json::Value|,

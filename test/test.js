@@ -3,6 +3,16 @@ const test = require('tape');
 const app = Container.loadAndInstantiate("dist/app-spec-rust.hcpkg")
 app.start()
 
+test('call', (t) => {
+  t.plan(1)
+
+  const num1 = 2
+  const num2 = 2
+  const params = JSON.stringify({num1, num2})
+  const result = app.call("blog", "main", "check_sum", params)
+
+  t.equal(result, JSON.stringify({"sum": "4"}))
+})
 
 
 test('my_posts_as_committed', (t) => {
