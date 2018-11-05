@@ -1,8 +1,9 @@
 
+use hdk::error::ZomeApiError;
+use hdk::holochain_core_types::error::HolochainError;
 use hdk::holochain_core_types::json::default_to_json;
 use hdk::{
     self,
-    holochain_core_types::error::ZomeApiError,
     holochain_wasm_utils::api_serialization::get_entry::{
         GetEntryOptions,
     },
@@ -16,16 +17,12 @@ use hdk::{
 use post::Post;
 
 pub fn handle_check_sum(num1: u32, num2: u32) -> JsonString {
-    #[derive(Serialize, Debug)]
+    #[derive(Serialize, Deserialize, Debug, DefaultJson)]
     struct SumInput {
         num1: u32,
         num2: u32,
     };
-    impl From<SumInput> for JsonString {
-        fn from(v: SumInput) -> Self {
-            default_to_json(v)
-        }
-    }
+
     let call_input = SumInput {
         num1: num1,
         num2: num2,
