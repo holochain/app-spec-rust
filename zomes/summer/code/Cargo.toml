@@ -6,7 +6,7 @@ authors = ["Holochain Core Dev Team <devcore@holochain.org>"]
 [dependencies]
 serde = "1.0"
 serde_json = "1.0"
-hdk = { git = "https://github.com/holochain/holochain-rust" , branch = "jsonstring" }
+hdk = { git = "https://github.com/holochain/holochain-rust" , branch = "develop" }
 serde_derive = "1.0"
 boolinator = "2.4"
 
