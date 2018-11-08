@@ -1,7 +1,6 @@
 
 use hdk::error::ZomeApiError;
 use hdk::holochain_core_types::error::HolochainError;
-use hdk::holochain_core_types::json::default_to_json;
 use hdk::{
     self,
     holochain_wasm_utils::api_serialization::get_entry::{
@@ -15,6 +14,16 @@ use hdk::{
 };
 
 use post::Post;
+
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
+struct AddressRespose {
+    address: HashString
+}
+
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
+struct MultiAddressRespose {
+    addresses: Vec<HashString>
+}
 
 pub fn handle_check_sum(num1: u32, num2: u32) -> JsonString {
     #[derive(Serialize, Deserialize, Debug, DefaultJson)]
@@ -44,7 +53,7 @@ pub fn handle_hash_post(content: String) -> JsonString {
 
 
     match hdk::hash_entry(&post_entry) {
-        Ok(address) => json!({"address": address}).into(),
+        Ok(address) => AddressRespose{address}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
 }
@@ -59,24 +68,24 @@ pub fn handle_create_post(content: String, in_reply_to: HashString) -> JsonStrin
     );
 
     match hdk::commit_entry(&post_entry) {
-        Ok(post_hash) => {
+        Ok(address) => {
             let link_result = hdk::link_entries(
                 &HashString::from(AGENT_ADDRESS.to_string()),
-                &post_hash,
+                &address,
                 "authored_posts"
             );
 
             if link_result.is_err() {
-                return json!({"link error": link_result.err().unwrap()}).into()
+                return link_result.into()
             }
 
             let in_reply_to = in_reply_to;
             if !in_reply_to.to_string().is_empty() {
                 if let Ok(_) = hdk::get_entry_result(in_reply_to.clone(), GetEntryOptions{}) {
-                    let _ = hdk::link_entries(&in_reply_to, &post_hash, "comments");
+                    let _ = hdk::link_entries(&in_reply_to, &address, "comments");
                 }
             }
-            json!({"address": post_hash}).into()
+            AddressRespose{address}.into()
         }
         Err(hdk_error) => hdk_error.into(),
     }
@@ -84,14 +93,14 @@ pub fn handle_create_post(content: String, in_reply_to: HashString) -> JsonStrin
 
 pub fn handle_posts_by_agent(agent: HashString) -> JsonString {
     match hdk::get_links(&agent, "authored_posts") {
-        Ok(result) => json!({"post_hashes": result}).into(),
+        Ok(result) => MultiAddressRespose{addresses: result}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
 }
 
 pub fn handle_my_posts() -> JsonString {
     match hdk::get_links(&HashString::from(AGENT_ADDRESS.to_string()), "authored_posts") {
-        Ok(result) => json!({"post_hashes": result}).into(),
+        Ok(result) => MultiAddressRespose{addresses: result}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
 }
@@ -103,7 +112,7 @@ pub fn handle_my_posts_as_commited() -> JsonString {
     // future versions will also include more parameters for more complex
     // queries.
     match hdk::query("post",0) {
-        Ok(posts) => json!({"post_hashes": posts}).into(),
+        Ok(posts) => MultiAddressRespose{addresses: posts}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
 }
@@ -119,11 +128,11 @@ pub fn handle_get_post(post_address: HashString) -> JsonString {
         Ok(Some(entry)) => {
             entry.value().to_owned()
         },
-        Ok(None) =>  json!({}).into(),
+        Ok(None) => {}.into(),
 
         // This error means that the string in `entry`
         // is not a stringified JSON which should not
         // happen but might be a bug somewhere else:
-        Err(err) => json!({"error deserializing post": err.to_string()}).into(),
+        Err(err) => err.into(),
     }
 }

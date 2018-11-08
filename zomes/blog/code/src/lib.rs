@@ -39,12 +39,6 @@ define_zome! {
                 handler: blog::handle_hash_post
             }
 
-            // get_an_address: {
-            //     inputs: |post_hash: HashString|,
-            //     outputs: |post: serde_json::Value|,
-            //     handler: blog::handle_get_an_address
-            // }
-
             create_post: {
                 inputs: |content: String, in_reply_to: HashString|,
                 outputs: |result: JsonString|,

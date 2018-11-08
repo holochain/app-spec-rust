@@ -30,7 +30,6 @@ test('create_post', (t) => {
   const in_reply_to = ""
   const params = JSON.stringify({content, in_reply_to})
   const result = app.call("blog", "main", "create_post", params)
-  console.log(result)
   t.equal(JSON.parse(result).address.length, 46) 
 })
 
@@ -53,7 +52,7 @@ test('posts_by_agent', (t) => {
 
   const result = app.call("blog", "main", "posts_by_agent", params)
 
-  t.equal(result, JSON.stringify({"post_hashes":[]}))
+  t.equal(result, JSON.stringify({"addresses":[]}))
 })
 
 test('my_posts', (t) => {
@@ -68,7 +67,7 @@ test('my_posts', (t) => {
   )
 
   const result = app.call("blog", "main", "my_posts", JSON.stringify({}))
-  t.equal(JSON.parse(result).post_hashes.length, 2)
+  t.equal(JSON.parse(result).addresses.length, 2)
 })
 
 
@@ -89,7 +88,7 @@ test('create/get_post rountrip', (t) => {
 })
 
 
-test('get_post with non-existant hash returns empty object', (t) => {
+test('get_post with non-existant hash returns null', (t) => {
   t.plan(1)
 
   const post_address = "RANDOM"
@@ -97,5 +96,5 @@ test('get_post with non-existant hash returns empty object', (t) => {
   const result = app.call("blog", "main", "get_post", params_get)
 
   const entry = JSON.parse(result)
-  t.same(entry, {})
+  t.same(entry, null)
 })
