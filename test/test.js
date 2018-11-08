@@ -85,7 +85,6 @@ test('create/get_post rountrip', (t) => {
   const result = app.call("blog", "main", "get_post", params_get)
 
   const entry = JSON.parse(result)
-  console.log(entry)
   t.equal(entry.content, content)
 })
 
