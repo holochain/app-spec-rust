@@ -5,8 +5,6 @@ USER root
 RUN export DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install --yes \
-  qtdeclarative5-dev \
-  libqt5websockets5-dev \
   libreadline6-dev \
   software-properties-common
 
