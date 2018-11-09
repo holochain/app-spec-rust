@@ -1,4 +1,3 @@
-
 use hdk::error::ZomeApiError;
 use hdk::holochain_core_types::error::HolochainError;
 use hdk::{
@@ -16,12 +15,12 @@ use hdk::{
 use post::Post;
 
 #[derive(Serialize, Deserialize, Debug, DefaultJson)]
-struct AddressRespose {
+struct AddressResponse {
     address: HashString
 }
 
 #[derive(Serialize, Deserialize, Debug, DefaultJson)]
-struct MultiAddressRespose {
+struct MultiAddressResponse {
     addresses: Vec<HashString>
 }
 
@@ -44,7 +43,7 @@ pub fn handle_check_sum(num1: u32, num2: u32) -> JsonString {
 }
 
 pub fn handle_hash_post(content: String) -> JsonString {
-    let post_entry = Entry::new(EntryType::App("post".into()), 
+    let post_entry = Entry::new(EntryType::App("post".into()),
         Post {
             content: content.to_string(),
             date_created: "now".to_string()
@@ -53,14 +52,14 @@ pub fn handle_hash_post(content: String) -> JsonString {
 
 
     match hdk::hash_entry(&post_entry) {
-        Ok(address) => AddressRespose{address}.into(),
+        Ok(address) => AddressResponse{address}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
 }
 
 pub fn handle_create_post(content: String, in_reply_to: HashString) -> JsonString {
 
-    let post_entry = Entry::new(EntryType::App("post".into()), 
+    let post_entry = Entry::new(EntryType::App("post".into()),
         Post {
             content: content.to_string(),
             date_created: "now".to_string()
@@ -85,7 +84,7 @@ pub fn handle_create_post(content: String, in_reply_to: HashString) -> JsonStrin
                     let _ = hdk::link_entries(&in_reply_to, &address, "comments");
                 }
             }
-            AddressRespose{address}.into()
+            AddressResponse{address}.into()
         }
         Err(hdk_error) => hdk_error.into(),
     }
@@ -93,14 +92,14 @@ pub fn handle_create_post(content: String, in_reply_to: HashString) -> JsonStrin
 
 pub fn handle_posts_by_agent(agent: HashString) -> JsonString {
     match hdk::get_links(&agent, "authored_posts") {
-        Ok(result) => MultiAddressRespose{addresses: result}.into(),
+        Ok(result) => MultiAddressResponse{addresses: result}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
 }
 
 pub fn handle_my_posts() -> JsonString {
     match hdk::get_links(&HashString::from(AGENT_ADDRESS.to_string()), "authored_posts") {
-        Ok(result) => MultiAddressRespose{addresses: result}.into(),
+        Ok(result) => MultiAddressResponse{addresses: result}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
 }
@@ -112,7 +111,7 @@ pub fn handle_my_posts_as_commited() -> JsonString {
     // future versions will also include more parameters for more complex
     // queries.
     match hdk::query("post",0) {
-        Ok(posts) => MultiAddressRespose{addresses: posts}.into(),
+        Ok(posts) => MultiAddressResponse{addresses: posts}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
 }
