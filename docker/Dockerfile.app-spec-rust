@@ -5,8 +5,6 @@ RUN apt-get update && apt-get install --yes \
   libqt5websockets5-dev \
   libreadline6-dev
 
-USER root
-
 RUN rustup toolchain install nightly-x86_64-unknown-linux-gnu
 RUN rustup toolchain install nightly-2018-07-17-x86_64-unknown-linux-gnu
 RUN rustup default nightly
