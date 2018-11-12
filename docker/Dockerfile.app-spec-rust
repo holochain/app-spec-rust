@@ -1,7 +1,5 @@
 FROM holochain/holochain-rust:develop
 
-USER root
-
 RUN export DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install --yes \
