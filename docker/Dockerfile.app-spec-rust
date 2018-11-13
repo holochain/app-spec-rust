@@ -3,8 +3,8 @@ FROM holochain/holochain-rust:develop
 RUN export DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install --yes \
-  libreadline6-dev \
-  software-properties-common
+  libreadline6-dev \              # needed for hcshell
+  software-properties-common      # needed for add-apt-repository
 
 # Install latest version of QT needed for hcshell
 RUN add-apt-repository ppa:beineri/opt-qt-5.11.1-xenial
