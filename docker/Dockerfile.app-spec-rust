@@ -2,6 +2,7 @@ FROM holochain/holochain-rust:develop
 
 RUN export DEBIAN_FRONTEND=noninteractive
 
+# readline needed for hcshell & propierties needed for add-apt-repository
 RUN apt-get update && apt-get install --yes \
   libreadline6-dev \
   software-properties-common
