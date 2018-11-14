@@ -20,7 +20,7 @@ test('get entry address', (t) => {
   const params = JSON.stringify({content: "Holo world"})
   const result = app.call("blog", "main", "hash_post", params)
 
-  t.equal(JSON.parse(result).address.length, 46)
+  t.equal(JSON.parse(result).address, "QmNndXfXcxqwsnAXdvbnzdZUS7bm4WqimY7w873C3Uttx1")
 })
 
 test('create_post', (t) => {
