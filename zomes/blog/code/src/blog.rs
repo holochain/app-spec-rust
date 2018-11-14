@@ -51,7 +51,7 @@ pub fn handle_hash_post(content: String) -> JsonString {
     );
 
 
-    match hdk::hash_entry(&post_entry) {
+    match hdk::entry_address(&post_entry) {
         Ok(address) => AddressResponse{address}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
@@ -106,11 +106,13 @@ pub fn handle_my_posts() -> JsonString {
 
 
 pub fn handle_my_posts_as_commited() -> JsonString {
-    // in the current implementation of hdk::query the second parameter
-    // specifies the maximum number of items to return, with 0 meaning all.
-    // future versions will also include more parameters for more complex
+    // In the current implementation of hdk::query the second parameter
+    // specifies the starting index and the third parameter the maximum
+    // number of items to return, with 0 meaning all.
+    // This allows for pagination.
+    // Future versions will also include more parameters for more complex
     // queries.
-    match hdk::query("post",0) {
+    match hdk::query("post", 0, 0) {
         Ok(posts) => MultiAddressResponse{addresses: posts}.into(),
         Err(hdk_error) => hdk_error.into(),
     }
