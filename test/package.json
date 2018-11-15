@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "tape": "^4.9.1",
-    "json3": "*"
+    "json3": "*",
+    "@holochain/holochain-nodejs": "*"
   },
   "scripts": {
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "test": "node test.js"
   }
 }
