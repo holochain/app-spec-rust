@@ -1,6 +1,13 @@
 /// This file holds everything that represents the "post" entry type.
+
+use hdk::holochain_core_types::error::HolochainError;
+use hdk::holochain_core_types::json::JsonString;
 use boolinator::*;
-use hdk::{self, entry_definition::ValidatingEntryType, holochain_dna::zome::entry_types::Sharing};
+use hdk::{
+    self, 
+    entry_definition::ValidatingEntryType, 
+    holochain_dna::zome::entry_types::Sharing
+};
 use serde_json;
 
 /// We declare the structure of our entry type with this Rust struct.
@@ -8,11 +15,12 @@ use serde_json;
 /// to how this happens with functions parameters and zome_functions!.
 ///
 /// So this is our normative schema definition:
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
 pub struct Post {
-    content: String,
-    date_created: String,
+    pub content: String,
+    pub date_created: String,
 }
+
 
 /// This is what creates the full definition of our entry type.
 /// The entry! macro is wrapped in a function so that we can have the content

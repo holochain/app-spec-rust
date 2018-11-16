@@ -1,3 +1,5 @@
+#![feature(try_from)]
+
 #[macro_use]
 extern crate hdk;
 extern crate serde;
@@ -6,6 +8,8 @@ extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
 extern crate boolinator;
+#[macro_use]
+extern crate holochain_core_types_derive;
 
 pub mod blog;
 pub mod post;
@@ -25,25 +29,19 @@ define_zome! {
         main (Public) {
             check_sum: {
                 inputs: |num1: u32, num2: u32|,
-                outputs: |post: serde_json::Value|,
+                outputs: |post: JsonString|,
                 handler: blog::handle_check_sum
             }
 
             hash_post: {
                 inputs: |content: String|,
-                outputs: |post: serde_json::Value|,
+                outputs: |result: JsonString|,
                 handler: blog::handle_hash_post
-            }
-
-            get_an_address: {
-                inputs: |post_hash: HashString|,
-                outputs: |post: serde_json::Value|,
-                handler: blog::handle_get_an_address
             }
 
             create_post: {
                 inputs: |content: String, in_reply_to: HashString|,
-                outputs: |hash: String|,
+                outputs: |result: JsonString|,
                 handler: blog::handle_create_post
             }
 
@@ -54,7 +52,7 @@ define_zome! {
             }
 
             get_post: {
-                inputs: |post_hash: HashString|,
+                inputs: |post_address: HashString|,
                 outputs: |post: serde_json::Value|,
                 handler: blog::handle_get_post
             }
