@@ -1,12 +1,14 @@
 /// This file holds everything that represents the "post" entry type.
 
-use hdk::holochain_core_types::error::HolochainError;
-use hdk::holochain_core_types::json::JsonString;
+use hdk::holochain_core_types::{
+    dna::zome::entry_types::Sharing,
+    error::HolochainError,
+    json::JsonString,
+};
 use boolinator::*;
 use hdk::{
-    self, 
-    entry_definition::ValidatingEntryType, 
-    holochain_dna::zome::entry_types::Sharing
+    self,
+    entry_definition::ValidatingEntryType,
 };
 use serde_json;
 
