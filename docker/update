@@ -12,27 +12,3 @@ git submodule init
 git submodule update
 cargo update
 cargo +nightly build --release
-
-cd /holochain/holosqape
-git pull
-git submodule init
-git submodule update
-
-echo "COMPILING HOLOCHAIN RUST"
-cd /holochain/holosqape/holochain-rust
-git checkout develop
-git pull
-cargo update
-cargo +$TOOLS_NIGHTLY build --release
-
-
-echo "COMPILING HOLOSQAPE BINDINGS"
-cd /holochain/holosqape/bindings
-qmake
-make
-
-echo "COMPILING HCSHELL"
-cd /holochain/holosqape/hcshell
-qmake CONFIG+=release
-make clean
-make

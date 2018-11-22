@@ -6,13 +6,8 @@ echo "--------------------------------------------------------------------------
 hc package --output dist/app-spec-rust.hcpkg --strip-meta
 echo "DONE."
 echo "===================================================================================="
-echo "BUILDING JS test file with webpack:"
+echo "Running test.js in node"
 echo "------------------------------------------------------------------------------------"
 cd test
 npm install
-npm run build
-cd ..
-echo "DONE."
-echo "RUNNING tests with hcshell..."
-echo "------------------------------------------------------------------------------------"
-hcshell test/dist/bundle.js | test/node_modules/faucet/bin/cmd.js
+node test.js | node_modules/faucet/bin/cmd.js
